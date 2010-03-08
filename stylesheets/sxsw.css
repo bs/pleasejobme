@@ -1,0 +1,56 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-size: 16px;
+  font-family: Gill, Helvetica, sans-serif;
+}
+
+a {
+  text-decoration: none;
+  font-weight: thin;
+  color: #2377BB;
+}
+
+.banner {
+  padding: 0.6em 0;
+  vertical-align: center;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#top {
+  background: #72B1CD;
+  font-size: 12px;
+}
+
+#navbar {
+  background: #C2DEEF;
+  font-size: 15px;
+}
+
+#navbar a {
+  padding: 0.3em 0.5em;
+  margin-right: 0.8em;
+}
+
+#navbar a.current {
+  background: #72B1CD;
+  color: white;
+}
+
+#underbar {
+  font-size: 12px;
+}
+
+/*
+header and selected nav: #72B1CD
+second bar: #C2DEEF
+unselected nav text: #2377BB
+
+oauth
+"sign in with twitter": ##2377BB
+sign in now bg: #F2F7FA (btn is actually same as mobile.twitter's
+"sign in now": #2377BB*/
