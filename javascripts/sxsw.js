@@ -1,11 +1,12 @@
 function initialize() {
-    var latlng = new google.maps.LatLng(37, -122);
-    var myOptions = {
-      zoom: 8,
-      center: latlng,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+  var latlng = new google.maps.LatLng(37, -122);
+  var myOptions = {
+    zoom: 8,
+    center: latlng,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+  getStuffFromLists()
 }
 
 function getStuffFromLists() {
@@ -18,17 +19,36 @@ function getStuffFromLists() {
   });
 }
 
+var tweetUserTemplate = 
+  '<div class="tweetUserPopup"><a href="http://twitter.com/{{screen_name}}">@{{screen_name}}</a>' +
+    '{{text}}' +
+  '</div>'
+  
+function tweetViewFor(tweet) {
+  return {
+    screen_name : tweet.user.screen_name,
+    text : tweet.text
+  }
+}
+
 function plotTweets(results) {
   $.each(results, function() { 
     if (this.geo != null) {
-      var latlng = new google.maps.LatLng(this.geo.coordinates[0], this.geo.coordinates[1]);
+      var view = tweetViewFor(this);
+      var tweetUserPopup = Mustache.to_html(tweetUserTemplate, view);
       
+      var infowindow = new google.maps.InfoWindow({ content: tweetUserPopup });
+      var latlng = new google.maps.LatLng(this.geo.coordinates[0], this.geo.coordinates[1]);
       var marker = new google.maps.Marker({
-            position: latlng, 
-            map: map, 
-            title:"Hello World!"
+        title: view.screen_name,
+        position: latlng, 
+        map: map
       });
-      console.log(this.geo);
+      
+      google.maps.event.addListener(marker, 'click', function() {
+        infowindow.open(map, marker);
+      });
+     
     }
   });
 }
