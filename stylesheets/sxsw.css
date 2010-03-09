@@ -1,3 +1,12 @@
+/*
+header and selected nav: #72B1CD
+second bar: #C2DEEF
+unselected nav text: #2377BB
+"sign in with twitter": ##2377BB
+sign in now bg: #F2F7FA (btn is actually same as mobile.twitter's
+"sign in now": #2377BB
+*/
+
 * {
 	margin: 0;
 	padding: 0;
@@ -45,12 +54,18 @@ a {
   font-size: 12px;
 }
 
-/*
-header and selected nav: #72B1CD
-second bar: #C2DEEF
-unselected nav text: #2377BB
+/* InfoWindows */
 
-oauth
-"sign in with twitter": ##2377BB
-sign in now bg: #F2F7FA (btn is actually same as mobile.twitter's
-"sign in now": #2377BB*/
+.profile-pic {
+ float: left;
+ margin-right: 6px;
+}
+
+.tweetUserPopup {
+}
+
+.tweet-text {
+  display: block;
+  max-width: 350;
+  padding: 8px;
+}
