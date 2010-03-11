@@ -11,7 +11,7 @@
   <script type="text/javascript" src="javascripts/sxsw.js"></script>
 </head>
 
-<body>
+<body id="index">
   <div id="top" class="banner">
     <img src="images/twitteratsxsw.png">
   </div>
@@ -21,14 +21,14 @@
     <a href="#">Recommended</a>
   </div>
   <div id="underbar" class="banner">
-    <a href="#">Who from Twitter should I meet at SxSW? &#0187;</a>
+    <a href="/who-should-i-meet.html">Who from Twitter should I meet at SxSW? &#0187;</a>
   </div>
 
   <div id="map_canvas" style="width:100%; height:100%"></div>
 
   <script type="text/javascript">
     $(function() {
-      initialize();
+      initializeMap();
     });
   </script>
 </body>

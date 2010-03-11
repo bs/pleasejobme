@@ -17,6 +17,10 @@ body {
   font-family: Gill, Helvetica, sans-serif;
 }
 
+h2, h3 {
+  font-weight: normal;
+}
+
 a {
   text-decoration: none;
   font-weight: thin;
@@ -65,8 +69,8 @@ img {
 }
 
 .profile-pic {
- float: left;
- margin-right: 6px;
+  float: left;
+  margin-right: 6px;
 }
 
 .full-name {
@@ -75,9 +79,6 @@ img {
 
 .screen-name {
   color: #17B1C8;
-}
-
-.tweetUserPopup {
 }
 
 .tweet-text {
@@ -90,4 +91,40 @@ img {
 
 .created-at {
   color: #737373;
+}
+
+/* Questionnaire */
+
+#who_should_i_meet #navbar {
+  background: #C2DEEF;
+  color: #666;
+  font-size: 15px;
+}
+
+#who_should_i_meet #navbar .inner {
+  text-align: left;
+  max-width: 500px;
+  padding: 0 8px;
+  margin: 0 auto;
+}
+
+#questionnaire li {
+  border: 2px solid #dadada;
+  color: #2377BB;
+  display: inline-block;
+  font-size: 13px;
+  padding: 3px 8px;
+  margin: 3px 7px;
+}
+
+#questionnaire li.selected {
+  background: #72B1CD;
+  border: 2px solid #72B1CD;
+  color: white;
+}
+
+#questionnaire h3 {
+  color: #666;
+  font-size: 16px;
+  margin: 12px 0 6px;
 }

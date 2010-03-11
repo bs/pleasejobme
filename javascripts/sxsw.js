@@ -137,7 +137,8 @@ function getTwitterTweets() {
   });
 }
 
-function initialize() {
+function initializeMap() {
+  var latlng = new google.maps.LatLng(37, -122);
   var myOptions = {
     zoom: 8,
     mapTypeId: google.maps.MapTypeId.ROADMAP
