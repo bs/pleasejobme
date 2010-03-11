@@ -11,6 +11,11 @@
 var employeeLocations = [];
 var othersLocations = [];
 
+// This is around Austin.
+var sw = new google.maps.LatLng(30.25, -97.76);
+var ne = new google.maps.LatLng(30.27, -97.73);
+var austinBounds = new google.maps.LatLngBounds(sw, ne);
+
 var tweetUserTemplate =
   '<div class="tweetUserPopup">' +
     '<table><tr><td class="image-td"><a href="http://twitter.com/{{screen_name}}" class="profile-pic"><img src="{{avatar_src}}" width="48" height="48"></a></td><td>' +
@@ -73,7 +78,6 @@ function timeAgo(dateString) {
 }
 
 function tweetViewFor(tweet) {
-  console.log(tweet)
   var user = tweet.user;
   var view = {
     screen_name : user.screen_name,
@@ -111,13 +115,16 @@ function plotTweets(results) {
     }
   });
   
-  // Center and Zoom the Map.
-  var latLngBounds = new google.maps.LatLngBounds();
-  for(var i=0; i < locations.length; i++ ) {
-    latLngBounds.extend(locations[i]);
-  }
+
   
-  map.fitBounds(latLngBounds);
+  // Center and Zoom the Map.
+  map.fitBounds(austinBounds);
+  
+  // Uncomment to set it around all given coords returned.
+  // var latLngBounds = new google.maps.LatLngBounds();
+  // for(var i=0; i < locations.length; i++ ) {
+  //   latLngBounds.extend(locations[i]);
+  // }
 }
 
 function getTwitterTweets() {
