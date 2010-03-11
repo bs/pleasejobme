@@ -117,6 +117,10 @@ img {
   margin: 3px 7px;
 }
 
+#questionnaire li:hover {
+  cursor: pointer;
+}
+
 #questionnaire li.selected {
   background: #72B1CD;
   border: 2px solid #72B1CD;
@@ -127,4 +131,12 @@ img {
   color: #666;
   font-size: 16px;
   margin: 12px 0 6px;
+}
+
+.twitter-person {
+  display: inline-block;
+}
+
+.twitter-person span {
+  display:none;
 }
