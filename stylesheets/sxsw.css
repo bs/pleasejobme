@@ -23,6 +23,10 @@ a {
   color: #2377BB;
 }
 
+img {
+  border: 0;
+}
+
 .banner {
   padding: 0.6em 0;
   vertical-align: center;
@@ -56,16 +60,34 @@ a {
 
 /* InfoWindows */
 
+.image-td {
+  vertical-align: top;
+}
+
 .profile-pic {
  float: left;
  margin-right: 6px;
+}
+
+.full-name {
+  color: #0073AB;
+}
+
+.screen-name {
+  color: #17B1C8;
 }
 
 .tweetUserPopup {
 }
 
 .tweet-text {
-  display: block;
+  color: #4D4D4D;
+  margin-top: 2px;
   max-width: 350;
-  padding: 8px;
+  padding: 0;
+  font-size: 13px;
+}
+
+.created-at {
+  color: #737373;
 }
