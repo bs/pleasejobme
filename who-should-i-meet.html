@@ -1,0 +1,39 @@
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>twitter @ SxSW</title>
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/sxsw.css" />
+
+  <script type="text/javascript" src="javascripts/jquery-1.3.2.min.js"></script>
+  <script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false'></script>
+  <script type="text/javascript" src="javascripts/mustache.js"></script>
+  <script type="text/javascript" src="javascripts/questionnaire.js"></script>
+</head>
+
+<body id="who_should_i_meet">
+  <div id="top" class="banner">
+    <img src="images/twitteratsxsw.png">
+  </div>
+  <div id="navbar" class="banner">
+    <div class="inner">
+      <h2>Meet People from Twitter</h2>
+      <p>A lot of us from Twitter are here in Austin and we want to meet you! Who you should meet depends a lot on what interests you.</p>
+    </div>
+  </div>
+
+  <form id="questionnaire" action="who-should-i-meet_submit" method="post" accept-charset="utf-8">
+    <h3>Which of these sound like awesome things to work on?</h3>
+    <ul>
+    </ul>
+
+    <p><input type="submit" value="Continue &rarr;"></p>
+  </form>
+
+  <script type="text/javascript">
+    $(function() {
+      initializeQuestionnaire();
+    });
+  </script>
+</body>
+</html>
