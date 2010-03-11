@@ -57,15 +57,25 @@ a {
 /* InfoWindows */
 
 .profile-pic {
- float: left;
- margin-right: 6px;
-}
-
-.tweetUserPopup {
+  float: left;
+  margin-right: 6px;
 }
 
 .tweet-text {
   display: block;
   max-width: 350;
   padding: 8px;
+}
+
+/* Questionnaire */
+#who_should_i_meet #navbar {
+  background: #C2DEEF;
+  color: #333;
+  font-size: 15px;
+}
+
+#who_should_i_meet #navbar .inner {
+  text-align: left;
+  width: 500px;
+  margin: 0 auto;
 }

@@ -57,7 +57,7 @@ function getTweetsFromLists() {
   });
 }
 
-function initialize() {
+function initializeMap() {
   var latlng = new google.maps.LatLng(37, -122);
   var myOptions = {
     zoom: 8,
