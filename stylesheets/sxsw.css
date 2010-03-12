@@ -58,8 +58,23 @@ img {
   color: white;
 }
 
-#underbar {
-  font-size: 12px;
+#meet-box {
+  -moz-border-radius:5px 5px 5px 5px;
+  background:none repeat scroll 0 0 white;
+  border:3px solid #CCCCCC;
+  cursor:pointer;
+  display:none;
+  font-size:20px;
+  font-weight:bold;
+  left:50%;
+  margin:0 auto 0 -155px;
+  opacity:0.8;
+  padding:20px 30px;
+  position:absolute;
+  text-align:center;
+  top:88px;
+  width:240px;
+  z-index:999;
 }
 
 /* InfoWindows */

@@ -9,6 +9,7 @@
 
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
   <script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false'></script>
+  <script type="text/javascript" src="javascripts/jquery.cookie.js"></script>
   <script type="text/javascript" src="javascripts/mustache.js"></script>
   <script type="text/javascript" src="javascripts/sxsw.js"></script>
 </head>
@@ -17,14 +18,16 @@
   <div id="top" class="banner">
     <img src="images/twitteratsxsw.png">
   </div>
+
   <div id="navbar" class="banner">
     <a id="tp" href="#" class="current">Twitter People</a>
-    <a id="e" href="#">Everyone</a>
     <a id="tm" href="#">To Meet</a>
   </div>
-  <div id="underbar" class="banner">
-    <a href="/who-should-i-meet.html">Who from Twitter should I meet at SxSW? &#0187;</a>
+  
+  <div id="meet-box">
+    <a href="#">Who from Twitter should I meet at SXSW?<br /><br />Tap this crazy huge box to find out!</a>
   </div>
+
 
   <div id="map_canvas" style="width:100%; height:100%"></div>
 

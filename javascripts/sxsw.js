@@ -19,13 +19,10 @@ if (!window.console) {
    }
 }
 
-var $twitterPeople = $('#tp');
-var $everyone = $('#e');
-var $toMeet = $('#tm');
-
-var employeeLocations = [];
-var othersLocations = [];
 var markers = [];
+var infoWindows = [];
+var autoInterval = null;
+var infoIncrement = 0;
 
 // This is around Austin.
 var sw = new google.maps.LatLng(30.25, -97.76);
@@ -112,6 +109,8 @@ function plotTweets(results) {
         content: Mustache.to_html(tweetUserTemplate, tweetViewFor(this))
       });
       
+      infoWindows.push(infowindow);
+      
       var gLatLng = new google.maps.LatLng(this.geo.coordinates[0], this.geo.coordinates[1]);
 
       var marker = new google.maps.Marker({
@@ -124,7 +123,10 @@ function plotTweets(results) {
       markers.push(marker);
 
       google.maps.event.addListener(marker, 'click', function () {
+        stopAutoPop();
+        clearInfoWindows();
         infowindow.open(map, marker);
+        startAutoPop(30000);
       });
 
     }
@@ -145,6 +147,12 @@ function clearMarkers() {
     var marker = markers.pop();
     marker.setMap(null);
   }
+}
+
+function clearInfoWindows() {
+ $.each(infoWindows, function() {
+    this.close();
+  });
 }
 
 function getTwitterTweets() {
@@ -169,17 +177,40 @@ function getEveryoneTweets() {
   });
 }
 
-function addToEveryone(userName) {
-  $.ajax({
-    url: "http://api.twitter.com/1/atsxsw/people/members.xml",
-    dataType: 'jsonp',
-    data: {
-      'id': userName
-    }
-    success: function(results) {
-      console.log('great success!');
-    }
-  });
+// function addToEveryone(userName) {
+//   $.ajax({
+//     url: "http://api.twitter.com/1/atsxsw/people/members.xml",
+//     dataType: 'jsonp',
+//     data: {
+//       'id': userName
+//     }
+//     success: function(results) {
+//       console.log('great success!');
+//     }
+//   });
+// }
+
+function autoPop() {
+  clearInfoWindows();
+  google.maps.event.trigger(markers[infoIncrement], 'click');
+  
+  if (infoIncrement == markers.length) {
+    infoIncrement = 0;
+  } else {
+    infoIncrement += 1;
+  }
+}
+
+function startAutoPop(interval) {
+  if (interval !== undefined) {
+    interval = 10000;
+  }
+
+  autoInterval = window.setInterval(autoPop, interval);
+}
+
+function stopAutoPop() {
+  window.clearInterval(autoInterval);
 }
 
 function initializeMap() {
@@ -193,6 +224,14 @@ function initializeMap() {
   map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
   getTwitterTweets();
   
+  if ($.cookie('taken_quiz') == null) {
+    $('#meet-box').show();
+  }
+
+  var $twitterPeople = $('#tp');
+  var $everyone = $('#e');
+  var $toMeet = $('#tm');
+    
   $everyone.click(function() {
     $twitterPeople.removeClass('current');
     $toMeet.removeClass('current');
@@ -208,4 +247,13 @@ function initializeMap() {
     $twitterPeople.addClass('current');
     getTwitterTweets();
   });
+  
+  $('#meet-box, #meet-box a').click(function(e) {
+    e.preventDefault();
+    $.cookie('taken_quiz', 'true');
+    $('#meet-box').hide();
+    console.log('taking you to the quiz.');
+  });
+  
+  startAutoPop();
 }
