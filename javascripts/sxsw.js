@@ -30,14 +30,14 @@ var austinBounds = new google.maps.LatLngBounds(sw, ne);
 
 var tweetUserTemplate =
   '<div class="tweetUserPopup">' +
-    '<table><tr><td class="image-td"><a href="http://twitter.com/{{screen_name}}" class="profile-pic"><img src="{{profile_image_url}}" width="48" height="48"></a></td><td>' +
+    '<table><tr><td class="image-td"><a href="http://twitter.com/{{screen_name}}" class="profile-pic"><img src="{{profile_image_url}}"></a></td><td>' +
     '<span class="full-name">{{name}}</span> <a class="screen-name" href="http://twitter.com/{{screen_name}}">@{{screen_name}}</a>' +
     '<div class="tweet-text">{{text}} <span class="created-at">{{created_at}}</span></div>' +
   '</td></tr></table></div>';
 
 var twitterPersonTemplate =
-  '<div id="person_{{id}}" class="twitter-person" style="display: none;" data="requestedInterests : []">' +
-    '<img alt="" border="0" height="73" id="profile-image" src="{{avatar_src}}" valign="middle" width="73">' +
+  '<div id="person_{{screen_name}}" class="twitter-person" style="display: none;" data="requestedInterests : []">' +
+    '<img alt="" border="0" height="73" id="profile-image" src="{{profile_image_url}}" valign="middle" width="73">' +
     '<span>{{info}}</span>' +
   '</div>';
 
