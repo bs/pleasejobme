@@ -17,7 +17,7 @@ var questionSelections = [
   ]
 ];
 
-var twitterPeople = {
+var twitterPeopleMetadata = {
  'hoverbird' : {
    info: 'Software Engineer on the webclient team.',
    avatar_src : 'http://a3.twimg.com/profile_images/468646545/cropped_bigger.jpg',
@@ -35,4 +35,13 @@ var twitterPeople = {
    avatar_src : 'http://a3.twimg.com/profile_images/562626215/plain_bigger.jpeg',
    requestedInterests: []
  }
+
 };
+
+
+ //
+ //
+ // 'Jenna Sampson'
+ // 'Sean Garrett'
+ // 'Mark Trammell'
+ // 'Zhanna Shamis'
