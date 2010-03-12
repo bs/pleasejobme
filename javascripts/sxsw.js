@@ -159,6 +159,8 @@ function getTwitterTweets() {
     success: function(results) {
       setTwitterPeople(results);
       plotTweets(results);
+      drawPeople(twitterPeople);
+      initializeQuestionnaire();
     }
   });
 }
@@ -237,7 +239,6 @@ function init() {
 
   //startAutoPop();
   blinkTag($('#tap'), 600);
-  initializeQuestionnaire();
   $('#meet-box').click();
 }
 
@@ -303,10 +304,9 @@ function elementSelected(listElement) {
 }
 
 function drawPeople(people) {
-  $.each(people, function(key, value) {
-    console.log(key);
-    //var personElement = $(Mustache.to_html(twitterPersonTemplate, personObject));
-    //$('body').append(personElement);
+  $.each(people, function(screenName, person) {
+    var personElement = $(Mustache.to_html(twitterPersonTemplate, person));
+    $('body').append(personElement);
   });
 }
 
@@ -324,5 +324,4 @@ function initializeQuestionnaire () {
       formSelections.append(listElement);
     });
   });
-  drawPeople(twitterPeople);
 }
