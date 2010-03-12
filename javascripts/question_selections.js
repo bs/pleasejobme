@@ -18,13 +18,6 @@ var questionSelections = [
     ]
   ],
 
-  [ 'What are you interested in?',
-    [ { id: 'bizdev',       name: 'Business development', people: ['bs', 'hoverbird'] },
-      { id: 'engineering',  name: 'Engineering', people: ['k'] },
-      { id: 'product',      name: 'Product Management', people: [] },
-      { id: 'research',     name: 'Research', people: []} ]
-  ],
-
   [ 'Where do you live?',
     [ { id: 'doesntmatter', name: "It doesn't matter to us", people: [] } ]
   ]
