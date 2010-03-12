@@ -8,8 +8,24 @@
 //   'k',
 // ]
 
+/* Degrade gracefully if the browser doesn't support console.log */
+if (!window.console) {
+   var names = ["log", "debug", "info", "warn", "error", "assert", "dir", "dirxml",
+   "group", "groupEnd", "time", "timeEnd", "count", "trace", "profile", "profileEnd"];
+
+   window.console = {};
+   for (var i = 0; i < names.length; ++i) {
+     window.console[names[i]] = function() {}
+   }
+}
+
+var $twitterPeople = $('#tp');
+var $everyone = $('#e');
+var $toMeet = $('#tm');
+
 var employeeLocations = [];
 var othersLocations = [];
+var markers = [];
 
 // This is around Austin.
 var sw = new google.maps.LatLng(30.25, -97.76);
@@ -90,8 +106,6 @@ function tweetViewFor(tweet) {
 }
 
 function plotTweets(results) {
-  var locations = [];
-  
   $.each(results, function () {
     if (this.geo !== null) {
       var infowindow = new google.maps.InfoWindow({
@@ -99,7 +113,6 @@ function plotTweets(results) {
       });
       
       var gLatLng = new google.maps.LatLng(this.geo.coordinates[0], this.geo.coordinates[1]);
-      locations.push(gLatLng);
 
       var marker = new google.maps.Marker({
         position: gLatLng,
@@ -107,6 +120,8 @@ function plotTweets(results) {
         map: map,
         icon: 'images/ic_twgeo.png'
       });
+      
+      markers.push(marker);
 
       google.maps.event.addListener(marker, 'click', function () {
         infowindow.open(map, marker);
@@ -115,16 +130,21 @@ function plotTweets(results) {
     }
   });
   
-
-  
   // Center and Zoom the Map.
   map.fitBounds(austinBounds);
   
-  // Uncomment to set it around all given coords returned.
+  // Set it around all given coords returned.
   // var latLngBounds = new google.maps.LatLngBounds();
   // for(var i=0; i < locations.length; i++ ) {
   //   latLngBounds.extend(locations[i]);
   // }
+}
+
+function clearMarkers() {
+  while(markers.length > 0) {
+    var marker = markers.pop();
+    marker.setMap(null);
+  }
 }
 
 function getTwitterTweets() {
@@ -137,13 +157,55 @@ function getTwitterTweets() {
   });
 }
 
+function getEveryoneTweets() {
+  clearMarkers();
+    
+  $.ajax({
+    url: "http://api.twitter.com/1/atsxsw/lists/people/statuses.json?per_page=200",
+    dataType: 'jsonp',
+    success: function(results) {
+      plotTweets(results);
+    }
+  });
+}
+
+function addToEveryone(userName) {
+  $.ajax({
+    url: "http://api.twitter.com/1/atsxsw/people/members.xml",
+    dataType: 'jsonp',
+    data: {
+      'id': userName
+    }
+    success: function(results) {
+      console.log('great success!');
+    }
+  });
+}
+
 function initializeMap() {
   var latlng = new google.maps.LatLng(37, -122);
   var myOptions = {
     zoom: 8,
+    disableDefaultUI: true,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
   
   map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
   getTwitterTweets();
+  
+  $everyone.click(function() {
+    $twitterPeople.removeClass('current');
+    $toMeet.removeClass('current');
+    
+    $everyone.addClass('current');
+    getEveryoneTweets();
+  });
+  
+  $twitterPeople.click(function() {
+    $everyone.removeClass('current');
+    $toMeet.removeClass('current');
+    
+    $twitterPeople.addClass('current');
+    getTwitterTweets();
+  });
 }
