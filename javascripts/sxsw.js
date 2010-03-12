@@ -253,6 +253,7 @@ function setTwitterPeople(results) {
 
       if (twitterPeopleMetadata[screen_name] !== undefined) {
         $.extend(twitterPeople[screen_name], twitterPeopleMetadata[screen_name]);
+        $.extend(twitterPeople[screen_name], {'requestedInterests' : []});
       }
     }
   });

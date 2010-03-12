@@ -1,8 +1,17 @@
 var questionSelections = [
   [ 'Which of these sound like awesome things to work on?',
-    [ { id: 'scaling',      name: 'Scaling for millions of people', people: ['bs'] },
-      { id: 'visualizing',  name: 'Visualizing a ton of data', people: ['k', 'hoverbird']},
-      { id: 'partners',     name: 'Helping major companies use Twitter', people: []} ]
+    [ { id: 'scaling',        name: 'Scaling for millions of people', people: ['jna', 'bs', 'hoverbird'] },
+      { id: 'visualizing',    name: 'Visualizing a ton of data', people: ['k', 'zhanna', 'stirman']},
+      { id: 'patterns',       name: 'Seeing patterns in a sea of data', people: ['kevinweil']},
+      { id: 'communication',  name: 'Changing the way we communicate', people: ['jenna', 'sean']},
+      { id: 'opensource',     name: 'Large-scale open source projects', people: ['hoverbird']},
+      { id: 'partners',       name: 'Making fast and sexy web applications', people: ['zhanna', 'k', 'bs', 'hoverbird']},
+      { id: 'sexy_ux',        name: 'Designing innovative and intuitive UIs', people: ['trammell', 'zhanna']},
+      { id: 'opensource',     name: 'Creating an international mobile platform', people: ['kevinthau']},
+      { id: 'opensource',     name: 'Large-scale open source projects', people: ['hoverbird']},
+      { id: 'opensource',     name: 'Touching millions of lives', people: ['zhanna', 'k', 'bs', 'hoverbird']},
+
+    ]
   ],
 
   [ 'What are you interested in?',
@@ -20,19 +29,16 @@ var questionSelections = [
 var twitterPeopleMetadata = {
  'hoverbird' : {
    info: 'Software Engineer on the webclient team.',
-   avatar_src : 'http://a3.twimg.com/profile_images/468646545/cropped_bigger.jpg',
    requestedInterests: []
  },
 
  'bs' : {
    info : 'Tech lead on the webclient team',
-   avatar_src : 'http://a3.twimg.com/profile_images/680920979/3832491393_5edffb69e7_bigger.jpg',
    requestedInterests: []
  },
 
  'k' : {
    info : 'Product Manager of the webclient team',
-   avatar_src : 'http://a3.twimg.com/profile_images/562626215/plain_bigger.jpeg',
    requestedInterests: []
  }
 
