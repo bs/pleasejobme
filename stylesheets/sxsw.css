@@ -77,6 +77,10 @@ img {
   z-index:999;
 }
 
+#tap {
+  color: red;
+}
+
 /* InfoWindows */
 
 .image-td {

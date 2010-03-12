@@ -213,6 +213,17 @@ function stopAutoPop() {
   window.clearInterval(autoInterval);
 }
 
+
+function blinkTag(element, speed) {
+  window.setInterval(function() {
+    if (element.css('visibility') === 'visible') {
+      element.css('visibility', 'hidden');
+    } else {
+      element.css('visibility', 'visible');
+    }    
+  }, speed);
+}
+
 function initializeMap() {
   var latlng = new google.maps.LatLng(37, -122);
   var myOptions = {
@@ -256,4 +267,5 @@ function initializeMap() {
   });
   
   startAutoPop();
+  blinkTag($('#tap'), 600);
 }
