@@ -237,7 +237,7 @@ function init() {
     $('#questionnaire').show();
   });
 
-  //startAutoPop();
+  // startAutoPop();
   blinkTag($('#tap'), 600);
   $('#meet-box').click();
 }
@@ -266,6 +266,7 @@ function addPerson(screen_name, skill) {
   } else {
     person.requestedInterests.push(skill);
     personElement.show();
+    $("#donebutton").show();
   }
 }
 
@@ -306,7 +307,7 @@ function elementSelected(listElement) {
 function drawPeople(people) {
   $.each(people, function(screenName, person) {
     var personElement = $(Mustache.to_html(twitterPersonTemplate, person));
-    $('body').append(personElement);
+    $('#questionnaireResults').append(personElement);
   });
 }
 
@@ -323,5 +324,12 @@ function initializeQuestionnaire () {
       });
       formSelections.append(listElement);
     });
+  });
+
+  $("#donebutton").click(function() {
+    $('form#questionnaire').hide();
+    $('#questionnaireResults').show();
+    $twitterPeopleLink.removeClass('selected');
+    $toMeetLink.addClass('selected');
   });
 }

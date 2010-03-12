@@ -1,5 +1,5 @@
 /*jslint white: false  */
-// stirman, Zhanna, kevinweil, sean, jenna, kevinthau, crystal, ed, ChloeS, pandemona, eweil, rsarver, stirman
+// stirman, Zhanna, kevinweil, sean, jenna, kevinthau, crystal, ed, ChloeS, pandemona, elizabeth, rsarver, stirman
 
 var questionSelections = [
   [ 'Which of these sound like awesome things to work on?',
@@ -15,7 +15,7 @@ var questionSelections = [
       { id: 'journalism',       name: 'Transforming journalism', people: ['ChloeS', 'robinsloan']},
       { id: 'usersupport',      name: 'Helping users who are having trouble', people: ['crystal', 'ed']},
       { id: 'internalops',      name: 'Building tools to scale internal operations', people: ['pandemona', 'netik']},
-      { id: 'realtimepartners', name: 'Partnering with twitter to deliver real-time solutions', people: ['rsarver', 'jess', 'eweil']},
+      { id: 'realtimepartners', name: 'Partnering with twitter to deliver real-time solutions', people: ['rsarver', 'jess', 'elizabeth']},
       { id: 'predictingcatastrophe',  name: "Figuring out what's going to go horribly wrong before it does", people: ['delbius', 'netik']},
       { id: 'spam',                   name: "Preventing spam and abuse from overtaking an open system", people: ['delbius']},
       { id: 'internaltools',          name: 'Designing, building and deploying killer internal tools', people: ['bs', 'stirman']}
@@ -52,7 +52,7 @@ var twitterPeopleMetadata = {
     info: "Media partnerships at Twitter. I collaborate with our news, TV, entertainment & sports partners to create captivating interactive media experiences. Talk to me about curation back-end tools, front-end data viz, how to make live events awesomer, & Twitter's power to flock and amplify your audience."
   },
 
-  'eweil': {
+  'elizabeth': {
     info: "Corporate Development and Business Development at Twitter. Talk to me about @anywhere and how you can integrate Twitter. Looking to meet awesome companies in the Twittersphere. And, always on the hunt for awesome folks to join our Twitter team."
   },
 
