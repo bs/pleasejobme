@@ -1,12 +1,5 @@
-/*jslint white: true, indent: 2, browser: true,  */
-/*global google, map, Mustache, $ */
-//
-// var tweepsToMap = [
-//   'pandemona',
-//   'hoverbird',
-//   'bs',
-//   'k',
-// ]
+/*jslint white: false, indent: 2, browser: true,  */
+/*global window, google, map, Mustache, $ */
 
 /* Degrade gracefully if the browser doesn't support console.log */
 if (!window.console) {
@@ -19,6 +12,12 @@ if (!window.console) {
    }
 }
 
+var twitterPeople = {};
+var $twitterPeopleLink = $('#tp');
+var $toMeetLink = $('#tm');
+
+var employeeLocations = [];
+var othersLocations = [];
 var markers = [];
 var infoWindows = [];
 var autoInterval = null;
@@ -31,11 +30,22 @@ var austinBounds = new google.maps.LatLngBounds(sw, ne);
 
 var tweetUserTemplate =
   '<div class="tweetUserPopup">' +
-    '<table><tr><td class="image-td"><a href="http://twitter.com/{{screen_name}}" class="profile-pic"><img src="{{avatar_src}}" width="48" height="48"></a></td><td>' +
-    '<span class="full-name">{{full_name}}</span> <a class="screen-name" href="http://twitter.com/{{screen_name}}">@{{screen_name}}</a>' +
+    '<table><tr><td class="image-td"><a href="http://twitter.com/{{screen_name}}" class="profile-pic"><img src="{{profile_image_url}}" width="48" height="48"></a></td><td>' +
+    '<span class="full-name">{{name}}</span> <a class="screen-name" href="http://twitter.com/{{screen_name}}">@{{screen_name}}</a>' +
     '<div class="tweet-text">{{text}} <span class="created-at">{{created_at}}</span></div>' +
   '</td></tr></table></div>';
-  
+
+var twitterPersonTemplate =
+  '<div id="person_{{id}}" class="twitter-person" style="display: none;" data="requestedInterests : []">' +
+    '<img alt="" border="0" height="73" id="profile-image" src="{{avatar_src}}" valign="middle" width="73">' +
+    '<span>{{info}}</span>' +
+  '</div>';
+
+var questionnaireSelectTemplate =
+  '<li id="{{id}}">{{name}}' +
+    '<input type="checkbox" id="select_{{id}}" name="questionnaire[{{id}}]" value="" style="display:none;"/>' +
+  '</li>';
+
 function timeAgo(dateString) {
   var rightNow = new Date();
   var then = new Date(dateString);
@@ -90,27 +100,14 @@ function timeAgo(dateString) {
   }
 }
 
-function tweetViewFor(tweet) {
-  var user = tweet.user;
-  var view = {
-    screen_name : user.screen_name,
-    full_name   : user.name,
-    avatar_src : user.profile_image_url,
-    text : tweet.text,
-    created_at : timeAgo(tweet.created_at)
-  };
-  return view;
-}
-
 function plotTweets(results) {
   $.each(results, function () {
     if (this.geo !== null) {
       var infowindow = new google.maps.InfoWindow({
-        content: Mustache.to_html(tweetUserTemplate, tweetViewFor(this))
+        content: Mustache.to_html(tweetUserTemplate, this.user)
       });
-      
+
       infoWindows.push(infowindow);
-      
       var gLatLng = new google.maps.LatLng(this.geo.coordinates[0], this.geo.coordinates[1]);
 
       var marker = new google.maps.Marker({
@@ -119,7 +116,7 @@ function plotTweets(results) {
         map: map,
         icon: 'images/ic_twgeo.png'
       });
-      
+
       markers.push(marker);
 
       google.maps.event.addListener(marker, 'click', function () {
@@ -131,10 +128,10 @@ function plotTweets(results) {
 
     }
   });
-  
+
   // Center and Zoom the Map.
   map.fitBounds(austinBounds);
-  
+
   // Set it around all given coords returned.
   // var latLngBounds = new google.maps.LatLngBounds();
   // for(var i=0; i < locations.length; i++ ) {
@@ -160,40 +157,21 @@ function getTwitterTweets() {
     url: "http://api.twitter.com/1/twitter/lists/sxsw/statuses.json?per_page=200",
     dataType: 'jsonp',
     success: function(results) {
+      setTwitterPeople(results);
       plotTweets(results);
     }
   });
 }
-
-function getEveryoneTweets() {
-  clearMarkers();
-    
-  $.ajax({
-    url: "http://api.twitter.com/1/atsxsw/lists/people/statuses.json?per_page=200",
-    dataType: 'jsonp',
-    success: function(results) {
-      plotTweets(results);
-    }
-  });
-}
-
-// function addToEveryone(userName) {
-//   $.ajax({
-//     url: "http://api.twitter.com/1/atsxsw/people/members.xml",
-//     dataType: 'jsonp',
-//     data: {
-//       'id': userName
-//     }
-//     success: function(results) {
-//       console.log('great success!');
-//     }
-//   });
-// }
 
 function autoPop() {
   clearInfoWindows();
-  google.maps.event.trigger(markers[infoIncrement], 'click');
   
+  if (markers[infoIncrement] === 'undefined') {
+    return false;
+  }
+
+  google.maps.event.trigger(markers[infoIncrement], 'click');
+
   if (infoIncrement == markers.length) {
     infoIncrement = 0;
   } else {
@@ -213,7 +191,6 @@ function stopAutoPop() {
   window.clearInterval(autoInterval);
 }
 
-
 function blinkTag(element, speed) {
   window.setInterval(function() {
     if (element.css('visibility') === 'visible') {
@@ -224,41 +201,31 @@ function blinkTag(element, speed) {
   }, speed);
 }
 
-function initializeMap() {
+function init() {
   var latlng = new google.maps.LatLng(37, -122);
   var myOptions = {
     zoom: 8,
     disableDefaultUI: true,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
-  
+
   map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-  getTwitterTweets();
-  
+
   if ($.cookie('taken_quiz') == null) {
     $('#meet-box').show();
   }
 
-  var $twitterPeople = $('#tp');
-  var $everyone = $('#e');
-  var $toMeet = $('#tm');
-    
-  $everyone.click(function() {
-    $twitterPeople.removeClass('current');
-    $toMeet.removeClass('current');
-    
-    $everyone.addClass('current');
-    getEveryoneTweets();
+  var $twitterPeopleLink = $('#tp');
+  var $toMeetLink = $('#tm');
+
+  getTwitterTweets();
+
+  $twitterPeopleLink.click(function() {
+    $toMeetLink.removeClass('current');
+
+    $twitterPeopleLink.addClass('current');
   });
-  
-  $twitterPeople.click(function() {
-    $everyone.removeClass('current');
-    $toMeet.removeClass('current');
-    
-    $twitterPeople.addClass('current');
-    getTwitterTweets();
-  });
-  
+
   $('#meet-box, #meet-box a').click(function(e) {
     e.preventDefault();
     $.cookie('taken_quiz', 'true');
@@ -268,4 +235,92 @@ function initializeMap() {
   
   startAutoPop();
   blinkTag($('#tap'), 600);
+}
+
+//
+// Questionnaire ------------------------------------------------------------------------------------------
+//
+
+function addPerson(id, skill) {
+  var personElement = $('#person_' + id );
+  var person = twitterPeople[id];
+  if (person === null) {
+    console.log("Couldn't find a twitterPerson with ID " + id);
+  } else {
+    person.requestedInterests.push(skill);
+    personElement.show();
+  }
+}
+
+function removePerson(id, skill) {
+  var personElement = $('#person_' + id );
+  var filteredInterests = $.grep(twitterPeople[id].requestedInterests, function(value, index) {
+    return value != skill;
+  });
+  if (filteredInterests.length <= 0) {
+    personElement.hide();
+  }
+  twitterPeople[id].requestedInterests = filteredInterests;
+}
+
+function elementUnselected(listElement) {
+  $.each(listElement.data('people'), function () {
+   removePerson(this, listElement.attr('id'));
+  });
+  listElement.find('input[type="checkbox"]').attr("value", "");
+  listElement.removeClass('selected');
+  listElement.one('click', function () {
+    elementSelected(listElement);
+  });
+}
+
+function elementSelected(listElement) {
+  listElement.find('input[type="checkbox"]').attr("value", "checked");
+  listElement.addClass('selected');
+  $.each(listElement.data('people'), function () {
+    addPerson(this, listElement.attr('id'));
+  });
+
+  listElement.one('click', function () {
+    elementUnselected(listElement);
+  });
+}
+
+function drawPeople(people) {
+  $.each(people, function(id, personObject) {
+    var twitterPersonObject = $.extend(personObject, {'id' : id});
+    var personElement = $(Mustache.to_html(twitterPersonTemplate, twitterPersonObject));
+    $('body').append(personElement);
+  });
+}
+
+function setTwitterPeople(results) {
+  $.each(results, function(index, tweet) {
+    if ((tweet.user !== undefined) && (twitterPeople[tweet.user.screen_name] === undefined)) {
+      var screen_name = tweet.user.screen_name;
+      twitterPeople[screen_name] = tweet.user;
+
+      if (twitterPeopleMetadata[screen_name] !== undefined) {
+        console.log("Merging: " + screen_name + " with: " + twitterPeopleMetadata[screen_name]);
+        $.extend(twitterPeople[screen_name], twitterPeopleMetadata[screen_name]);
+      }
+    }
+  });
+}
+
+function initializeQuestionnaire () {
+  var formSelections = $("form#questionnaire ul");
+
+  $.each(questionSelections, function () {
+    formSelections.append($("<h3>" + this[0] + "</h3>"));
+    $.each(this[1], function () {
+      var listElement = $(Mustache.to_html(questionnaireSelectTemplate, this));
+      listElement.data('people', this.people);
+      listElement.one('click', function () {
+        elementSelected(listElement);
+      });
+      formSelections.append(listElement);
+    });
+  });
+  drawPeople(twitterPeople);
 }

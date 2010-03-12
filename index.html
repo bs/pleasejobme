@@ -1,8 +1,8 @@
 <html lang="en">
 <head>
 	<title>twitter @ SxSW</title>
-  <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" /> 
-  <meta name="apple-mobile-web-app-capable" content="yes" /> 
+  <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
   <link rel="stylesheet" type="text/css" href="stylesheets/sxsw.css" />
@@ -10,6 +10,7 @@
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
   <script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false'></script>
   <script type="text/javascript" src="javascripts/jquery.cookie.js"></script>
+  <script type="text/javascript" src="javascripts/question_selections.js"></script>
   <script type="text/javascript" src="javascripts/mustache.js"></script>
   <script type="text/javascript" src="javascripts/sxsw.js"></script>
 </head>
@@ -23,7 +24,6 @@
     <a id="tp" href="#" class="current">Twitter People</a>
     <a id="tm" href="#">To Meet</a>
   </div>
-  
   <div id="meet-box">
     <a href="#">Who from Twitter should I meet at SXSW?<br /><br /><span id="tap">&lt;blink&gt;Tap here!&lt;\blink&gt;</span></a>
   </div>
@@ -33,7 +33,7 @@
 
   <script type="text/javascript">
     $(function() {
-      initializeMap();
+      init();
     });
   </script>
 </body>
