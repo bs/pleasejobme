@@ -1,22 +1,22 @@
 /*jslint white: false  */
-// stirman, zhanna, kevinweil, sean, jenna, kevinthau, crystal, ed, chloe, sarah, eweil, rsarver, stirman
+// stirman, Zhanna, kevinweil, sean, jenna, kevinthau, crystal, ed, ChloeS, pandemona, eweil, rsarver, stirman
 
 var questionSelections = [
   [ 'Which of these sound like awesome things to work on?',
-    [ { id: 'scaling',          name: 'Scaling for millions of people', people: ['jna', 'bs', 'hoverbird'] },
-      { id: 'visualizing',      name: 'Visualizing a ton of data', people: ['k', 'zhanna', 'stirman']},
+    [ { id: 'scaling',          name: 'Scaling for millions of people', people: ['netik', 'bs', 'hoverbird'] },
+      { id: 'visualizing',      name: 'Visualizing a ton of data', people: ['k', 'Zhanna', 'stirman']},
       { id: 'patterns',         name: 'Seeing patterns in a sea of data', people: ['kevinweil']},
       { id: 'communication',    name: 'Changing the way we communicate', people: ['jenna', 'sean']},
       { id: 'opensource',       name: 'Large-scale open source projects', people: ['hoverbird']},
-      { id: 'partners',         name: 'Making fast and sexy web applications', people: ['zhanna', 'k', 'bs', 'hoverbird']},
-      { id: 'sexy_ux',          name: 'Designing innovative and intuitive UIs', people: ['trammell', 'zhanna']},
+      { id: 'partners',         name: 'Making fast and sexy web applications', people: ['Zhanna', 'k', 'bs', 'hoverbird']},
+      { id: 'sexy_ux',          name: 'Designing innovative and intuitive UIs', people: ['trammell', 'Zhanna']},
       { id: 'mobile',           name: 'Creating an international mobile platform', people: ['kevinthau']},
-      { id: 'mediacompanies',   name: 'Helping media companies tell stories with tweets', people: ['chloe', 'robin']},
-      { id: 'journalism',       name: 'Transforming journalism', people: ['chloe', 'robin']},
+      { id: 'mediacompanies',   name: 'Helping media companies tell stories with tweets', people: ['ChloeS', 'robinsloan']},
+      { id: 'journalism',       name: 'Transforming journalism', people: ['ChloeS', 'robinsloan']},
       { id: 'usersupport',      name: 'Helping users who are having trouble', people: ['crystal', 'ed']},
-      { id: 'internalops',      name: 'Building tools to scale internal operations', people: ['sarah', 'jna']},
+      { id: 'internalops',      name: 'Building tools to scale internal operations', people: ['pandemona', 'netik']},
       { id: 'realtimepartners', name: 'Partnering with twitter to deliver real-time solutions', people: ['rsarver', 'jess', 'eweil']},
-      { id: 'predictingcatastrophe',  name: "Figuring out what's going to go horribly wrong before it does", people: ['delbius', 'jna']},
+      { id: 'predictingcatastrophe',  name: "Figuring out what's going to go horribly wrong before it does", people: ['delbius', 'netik']},
       { id: 'spam',                   name: "Preventing spam and abuse from overtaking an open system", people: ['delbius']},
       { id: 'internaltools',          name: 'Designing, building and deploying killer internal tools', people: ['bs', 'stirman']}
     ]
@@ -48,7 +48,7 @@ var twitterPeopleMetadata = {
     info: "Data visualization, project management, internal tools, code that makes art, University of Texas Football!"
   },
 
-  'chloes': {
+  'ChloeS': {
     info: "Media partnerships at Twitter. I collaborate with our news, TV, entertainment & sports partners to create captivating interactive media experiences. Talk to me about curation back-end tools, front-end data viz, how to make live events awesomer, & Twitter's power to flock and amplify your audience."
   },
 
@@ -56,7 +56,7 @@ var twitterPeopleMetadata = {
     info: "Corporate Development and Business Development at Twitter. Talk to me about @anywhere and how you can integrate Twitter. Looking to meet awesome companies in the Twittersphere. And, always on the hunt for awesome folks to join our Twitter team."
   },
 
-  'sg': {
+  'SG': {
     info: "New-ish Twitter communications lead. Let's talk media folks. And, looking to build a remarkable comms team. Likes chilaquiles and Shiner."
   },
 
@@ -68,15 +68,15 @@ var twitterPeopleMetadata = {
     info: "Design research. Eighth-straight SxSW."
   },
 
-  'zhanna': {
+  'Zhanna': {
     info: "Design; UX strategy at Twitter."
   },
 
-  'bakari': {
+  'Bakari': {
     info: "Business and legal affairs. Legal jujitsu such as partnerships in the media, music, geo and platform space."
   },
 
-  'jna': {
+  'netik': {
     info: "How we grow Twitter and its server farm to support millions of users daily, all while avoiding the fail whale. I'm looking for great people to join our Operations team."
   },
 
@@ -88,7 +88,7 @@ var twitterPeopleMetadata = {
     info: 'Building intuitive, scalable self help systems for people using Twitter.'
   },
 
-  'sarah': {
+  'pandemona': {
     info: 'Engineering at Twitter, internal tools, video games, Canadians!'
   },
 
@@ -104,7 +104,7 @@ var twitterPeopleMetadata = {
     info: "Community building, integrating Twitter into websites and apps, building tools for developers,	the firehose, the API roadmap, the Chirp conference."
   },
 
-  'robin': {
+  'robinsloan': {
     info: "The intersection of Twitter and media. Ideas and tools that help media companies use the power of Twitter to improve and accelerate everything they do. Brunch at Moonshine."
   }
 };
