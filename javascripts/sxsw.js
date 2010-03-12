@@ -165,7 +165,7 @@ function getTwitterTweets() {
 
 function autoPop() {
   clearInfoWindows();
-  
+
   if (markers[infoIncrement] === 'undefined') {
     return false;
   }
@@ -197,7 +197,7 @@ function blinkTag(element, speed) {
       element.css('visibility', 'hidden');
     } else {
       element.css('visibility', 'visible');
-    }    
+    }
   }, speed);
 }
 
@@ -211,41 +211,57 @@ function init() {
 
   map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 
-  if ($.cookie('taken_quiz') == null) {
-    $('#meet-box').show();
-  }
+    if ($.cookie('taken_quiz') == null) {
+      $('#meet-box').show();
+    }
 
-  var $twitterPeopleLink = $('#tp');
-  var $toMeetLink = $('#tm');
+    var $twitterPeopleLink = $('#tp');
+    var $toMeetLink = $('#tm');
 
   getTwitterTweets();
 
   $twitterPeopleLink.click(function() {
     $toMeetLink.removeClass('current');
-
     $twitterPeopleLink.addClass('current');
+    $('#map_canvas').show();
+    $('#questionnaire').hide();
   });
 
   $('#meet-box, #meet-box a').click(function(e) {
     e.preventDefault();
     $.cookie('taken_quiz', 'true');
     $('#meet-box').hide();
-    console.log('taking you to the quiz.');
+    $('#map_canvas').hide();
+    $('#questionnaire').show();
   });
-  
-  startAutoPop();
+
+  //startAutoPop();
   blinkTag($('#tap'), 600);
+  initializeQuestionnaire();
+  $('#meet-box').click();
 }
 
-//
-// Questionnaire ------------------------------------------------------------------------------------------
-//
 
-function addPerson(id, skill) {
-  var personElement = $('#person_' + id );
-  var person = twitterPeople[id];
+// Questionnaire ------------------------------------------------------------------------------------------
+
+function setTwitterPeople(results) {
+  $.each(results, function(index, tweet) {
+    if ((tweet.user !== undefined) && (twitterPeople[tweet.user.screen_name] === undefined)) {
+      var screen_name = tweet.user.screen_name;
+      twitterPeople[screen_name] = tweet.user;
+
+      if (twitterPeopleMetadata[screen_name] !== undefined) {
+        $.extend(twitterPeople[screen_name], twitterPeopleMetadata[screen_name]);
+      }
+    }
+  });
+}
+
+function addPerson(screen_name, skill) {
+  var personElement = $('#person_' + screen_name );
+  var person = twitterPeople[screen_name];
   if (person === null) {
-    console.log("Couldn't find a twitterPerson with ID " + id);
+    console.log("Couldn't find a twitterPerson with ID " + screen_name);
   } else {
     person.requestedInterests.push(skill);
     personElement.show();
@@ -287,24 +303,10 @@ function elementSelected(listElement) {
 }
 
 function drawPeople(people) {
-  $.each(people, function(id, personObject) {
-    var twitterPersonObject = $.extend(personObject, {'id' : id});
-    var personElement = $(Mustache.to_html(twitterPersonTemplate, twitterPersonObject));
-    $('body').append(personElement);
-  });
-}
-
-function setTwitterPeople(results) {
-  $.each(results, function(index, tweet) {
-    if ((tweet.user !== undefined) && (twitterPeople[tweet.user.screen_name] === undefined)) {
-      var screen_name = tweet.user.screen_name;
-      twitterPeople[screen_name] = tweet.user;
-
-      if (twitterPeopleMetadata[screen_name] !== undefined) {
-        console.log("Merging: " + screen_name + " with: " + twitterPeopleMetadata[screen_name]);
-        $.extend(twitterPeople[screen_name], twitterPeopleMetadata[screen_name]);
-      }
-    }
+  $.each(people, function(key, value) {
+    console.log(key);
+    //var personElement = $(Mustache.to_html(twitterPersonTemplate, personObject));
+    //$('body').append(personElement);
   });
 }
 
