@@ -250,10 +250,9 @@ function setTwitterPeople(results) {
     if ((tweet.user !== undefined) && (twitterPeople[tweet.user.screen_name] === undefined)) {
       var screen_name = tweet.user.screen_name;
       twitterPeople[screen_name] = tweet.user;
-
+      $.extend(twitterPeople[screen_name], {'requestedInterests' : []});
       if (twitterPeopleMetadata[screen_name] !== undefined) {
         $.extend(twitterPeople[screen_name], twitterPeopleMetadata[screen_name]);
-        $.extend(twitterPeople[screen_name], {'requestedInterests' : []});
       }
     }
   });
@@ -262,7 +261,7 @@ function setTwitterPeople(results) {
 function addPerson(screen_name, skill) {
   var personElement = $('#person_' + screen_name );
   var person = twitterPeople[screen_name];
-  if (person === null) {
+  if (person === undefined) {
     console.log("Couldn't find a twitterPerson with ID " + screen_name);
   } else {
     person.requestedInterests.push(skill);
