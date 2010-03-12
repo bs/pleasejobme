@@ -10,6 +10,10 @@ var questionSelections = [
       { id: 'opensource',     name: 'Creating an international mobile platform', people: ['kevinthau']},
       { id: 'opensource',     name: 'Large-scale open source projects', people: ['hoverbird']},
       { id: 'opensource',     name: 'Touching millions of lives', people: ['zhanna', 'k', 'bs', 'hoverbird']},
+      { id: 'opensource',     name: 'Large-scale open source projects', people: ['hoverbird']},
+      { id: 'opensource',     name: 'Large-scale open source projects', people: ['hoverbird']},
+      { id: 'opensource',     name: 'Large-scale open source projects', people: ['hoverbird']},
+      { id: 'opensource',     name: 'Large-scale open source projects', people: ['hoverbird']}
 
     ]
   ],
@@ -28,19 +32,16 @@ var questionSelections = [
 
 var twitterPeopleMetadata = {
  'hoverbird' : {
-   info: 'Software Engineer on the webclient team.',
-   requestedInterests: []
+   info: 'Software Engineer on the webclient team.'
  },
 
  'bs' : {
-   info : 'Tech lead on the webclient team',
-   requestedInterests: []
+   info : 'Tech lead on the webclient team'
  },
 
  'k' : {
-   info : 'Product Manager of the webclient team',
-   requestedInterests: []
- }
+   info : 'Product Manager of the webclient team'
+  }
 
 };
 

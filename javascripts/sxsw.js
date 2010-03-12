@@ -250,7 +250,10 @@ function setTwitterPeople(results) {
     if ((tweet.user !== undefined) && (twitterPeople[tweet.user.screen_name] === undefined)) {
       var screen_name = tweet.user.screen_name;
       twitterPeople[screen_name] = tweet.user;
+<<<<<<< HEAD:javascripts/sxsw.js
       
+=======
+>>>>>>> 8ac4c02dd0c3bc489d0a258111f4f952262ab5b3:javascripts/sxsw.js
       $.extend(twitterPeople[screen_name], {'requestedInterests' : []});
       if (twitterPeopleMetadata[screen_name] !== undefined) {
         $.extend(twitterPeople[screen_name], twitterPeopleMetadata[screen_name]);
