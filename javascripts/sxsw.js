@@ -32,14 +32,14 @@ var tweetUserTemplate =
   '<div class="tweetUserPopup">' +
     '<table><tr><td class="image-td"><a href="http://twitter.com/{{screen_name}}" class="profile-pic"><img src="{{profile_image_url}}"></a></td><td>' +
     '<span class="full-name">{{name}}</span> <a class="screen-name" href="http://twitter.com/{{screen_name}}">@{{screen_name}}</a>' +
-    '<div class="tweet-text">{{text}} <span class="created-at">{{created_at}}</span></div>' +
+    '<div class="tweet-text">{{latest-text}} <span class="created-at">{{created_at}}</span></div>' +
   '</td></tr></table></div>';
 
 var twitterPersonTemplate =
   '<div id="person_{{screen_name}}" class="twitter-person" style="display: none;">' +
     '<img class="profile-image" alt="{{screen_name}}" border="0" height="73" id="profile-image" src="{{profile_image_url}}" valign="middle" width="73">' +
     '<a href="http://twitter.com/{{screen_name}}">{{name}}&nbsp;<small>@{{screen_name}}</small></a>' +
-    '<div class="jobtitle">{{jobtitle}}</div>' +
+    '<div class="role">{{role}}</div>' +
     '<div class="meta"><span>Ask about:</span>{{info}}' +
     '<div class="meta"><span>Last seen:</span>{{lastseen}}' +
   '</div>';
@@ -252,7 +252,11 @@ function setTwitterPeople(results) {
       var screen_name = tweet.user.screen_name;
       twitterPeople[screen_name] = tweet.user;
 
-      $.extend(twitterPeople[screen_name], {'requestedInterests' : []});
+      $.extend(twitterPeople[screen_name], {
+        'requestedInterests' : [],
+        'latest-text' : this.text,
+        'created_at' : this.created_at
+      );
       if (twitterPeopleMetadata[screen_name] !== undefined) {
         $.extend(twitterPeople[screen_name], twitterPeopleMetadata[screen_name]);
       }

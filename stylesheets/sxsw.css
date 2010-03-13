@@ -162,7 +162,7 @@ img {
   width: auto;
 }
 
-.twitter-person .jobtitle {
+.twitter-person .role {
   color: #E2E2E2;
 }
 
@@ -178,6 +178,10 @@ img {
   color: #999999;
 }
 
+.twitter-person .meta span {
+  color: #444;
+  margin-right: 5px;
+}
 
 #donebutton {
   -moz-border-radius: 0.4em;
@@ -190,3 +194,8 @@ img {
   text-align: center;
   margin: 8px 6px;
 }
+
+#donebutton:active {
+  background: #999999;
+}
+
