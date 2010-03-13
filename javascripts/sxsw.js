@@ -183,7 +183,7 @@ function uniqueResults(results) {
       return element == screenName;
     }).length > 0)
 
-    if (!alreadyTweeted) {
+    if (!alreadyTweeted && tweet.geo != null) {
       screenNames.push(screenName);
       tweets.push(tweet);
     }
