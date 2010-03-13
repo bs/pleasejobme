@@ -15,10 +15,10 @@ if (!window.console) {
 var twitterPeople = {};
 var $twitterPeopleLink = $('#tp');
 var $toMeetLink = $('#tm');
-
-var $map_canvas = $('#map_canvas');
-var $questionnaire = $('form#questionnaire');
 var $questionnaireResults = $('#questionnaireResults');
+var questionnaire_complete = false;
+
+var $map_canvas, $questionnaire
 
 var employeeLocations = [];
 var othersLocations = [];
@@ -45,7 +45,7 @@ var twitterPersonTemplate =
     '<a href="http://twitter.com/{{screen_name}}">{{name}}&nbsp;<small>@{{screen_name}}</small></a>' +
     '<div class="role">{{role}}</div>' +
     '<div class="meta"><span>Ask about:</span>{{info}}' +
-    '<div class="meta"><span>Last seen:</span>{{lastseen}}' +
+    '{{#geo-name}}<div class="meta"><span>Last seen:</span>{{geo-name}}{{/geo-name}}' +
   '</div>';
 
 var questionnaireSelectTemplate =
@@ -176,19 +176,19 @@ function getTwitterTweets() {
 function uniqueResults(results) {
   var screenNames = [];
   var tweets = [];
-  
+
   $.each(results, function(screenName, tweet) {
     var screenName = tweet.user.screen_name;
     var alreadyTweeted = ($.grep(screenNames, function(element, index) {
       return element == screenName;
     }).length > 0)
-    
+
     if (!alreadyTweeted) {
       screenNames.push(screenName);
       tweets.push(tweet);
     }
   });
-  
+
   return tweets;
 }
 
@@ -199,10 +199,10 @@ function autoPop() {
   if (markers[infoIncrement] === undefined) {
     return false;
   }
-  
+
   var m = markers[infoIncrement];
   if (austinBounds.contains(m.getPosition())) {
-      google.maps.event.trigger(m, 'click'); 
+      google.maps.event.trigger(m, 'click');
   }
 
   if (infoIncrement == m.length) {
@@ -251,17 +251,40 @@ function init() {
   $twitterPeopleLink.click(function() {
     $toMeetLink.removeClass('current');
     $twitterPeopleLink.addClass('current');
-    $map_canvas.show();
-    $questionnaire.hide();
+    hideQuestionnaire();
+    showMap();
   });
 
   $toMeetLink.click(function() {
-    $map_canvas.hide();
-    $questionnaire.show();
+    $twitterPeopleLink.removeClass('current');
+    $toMeetLink.addClass('current');
+    hideMap();
+    showQuestionnaire();
   });
 }
 
 // Questionnaire ------------------------------------------------------------------------------------------
+
+function showMap() {
+  $('#map_canvas').show();
+}
+
+function hideMap() {
+  $('#map_canvas').hide();
+}
+
+function hideQuestionnaire() {
+  $('#questionnaire').hide();
+  $('#questionnaireResults').hide();
+};
+
+function showQuestionnaire() {
+  if (questionnaire_complete === true) {
+    $('#questionnaireResults').show();
+  } else {
+    $('#questionnaire').show();
+  }
+};
 
 function setTwitterPeople(results) {
   $.each(results, function(index, tweet) {
@@ -272,9 +295,13 @@ function setTwitterPeople(results) {
       $.extend(twitterPeople[screen_name], {
         'requestedInterests' : [],
         'text' : this.text,
-        'created_at' : timeAgo(this.created_at),
+        'created_at' : timeAgo(this.creat1ed_at),
         'geo' : this.geo
       });
+
+      if (this.place) {
+        $.extend(twitterPeople[screen_name], {'geo-name' : this.place.name});
+      }
 
       if (twitterPeopleMetadata[screen_name] !== undefined) {
         $.extend(twitterPeople[screen_name], twitterPeopleMetadata[screen_name]);
@@ -338,7 +365,6 @@ function drawPeople(people) {
 
 function initializeQuestionnaire () {
   var formSelections = $("form#questionnaire ul");
-
   $.each(questionSelections, function () {
     formSelections.append($("<h3>" + this[0] + "</h3>"));
     $.each(this[1], function () {
@@ -352,8 +378,9 @@ function initializeQuestionnaire () {
   });
 
   $("#donebutton").click(function() {
-    $questionnaire.hide();
-    $questionnaireResults.show();
+    questionnaire_complete = true;
+    hideQuestionnaire();
+    $('#questionnaireResults').show();
     $twitterPeopleLink.removeClass('selected');
     $toMeetLink.addClass('selected');
   });
