@@ -24,8 +24,8 @@ var autoInterval = null;
 var infoIncrement = 0;
 
 // This is around Austin.
-var sw = new google.maps.LatLng(30.25, -97.76);
-var ne = new google.maps.LatLng(30.27, -97.73);
+var sw = new google.maps.LatLng(30.26434, -97.75116);
+var ne = new google.maps.LatLng(30.27102, -97.73530);
 var austinBounds = new google.maps.LatLngBounds(sw, ne);
 
 var tweetUserTemplate =
@@ -101,10 +101,10 @@ function timeAgo(dateString) {
 }
 
 function plotTweets(results) {
-  $.each(results, function () {
+  $.each(results, function (screenName, person) {
     if (this.geo !== null) {
       var infowindow = new google.maps.InfoWindow({
-        content: Mustache.to_html(tweetUserTemplate, this.user)
+        content: Mustache.to_html(tweetUserTemplate, this)
       });
 
       infoWindows.push(infowindow);
@@ -112,7 +112,7 @@ function plotTweets(results) {
 
       var marker = new google.maps.Marker({
         position: gLatLng,
-        title: this.user.screen_name,
+        title: this.screen_name,
         map: map,
         icon: 'images/ic_twgeo.png'
       });
@@ -120,10 +120,10 @@ function plotTweets(results) {
       markers.push(marker);
 
       google.maps.event.addListener(marker, 'click', function () {
-        stopAutoPop();
+        //stopAutoPop();
         clearInfoWindows();
         infowindow.open(map, marker);
-        startAutoPop(30000);
+        //startAutoPop();
       });
 
     }
@@ -157,32 +157,57 @@ function getTwitterTweets() {
     url: "http://api.twitter.com/1/twitter/lists/sxsw/statuses.json?per_page=200",
     dataType: 'jsonp',
     success: function(results) {
+      results = uniqueResults(results);
       setTwitterPeople(results);
-      plotTweets(results);
+      plotTweets(twitterPeople);
       drawPeople(twitterPeople);
       initializeQuestionnaire();
     }
   });
 }
 
+function uniqueResults(results) {
+  var screenNames = [];
+  var tweets = [];
+  
+  $.each(results, function(screenName, tweet) {
+    var screenName = tweet.user.screen_name;
+    var alreadyTweeted = ($.grep(screenNames, function(element, index) {
+      return element == screenName;
+    }).length > 0)
+    
+    if (!alreadyTweeted) {
+      screenNames.push(screenName);
+      tweets.push(tweet);
+    }
+  });
+  
+  return tweets;
+}
+
 function autoPop() {
+  console.log('popping')
   clearInfoWindows();
 
-  if (markers[infoIncrement] === 'undefined') {
+  if (markers[infoIncrement] === undefined) {
     return false;
   }
+  
+  var m = markers[infoIncrement];
+  if (austinBounds.contains(m.getPosition())) {
+      google.maps.event.trigger(m, 'click'); 
+  }
 
-  google.maps.event.trigger(markers[infoIncrement], 'click');
-
-  if (infoIncrement == markers.length) {
+  if (infoIncrement == m.length) {
     infoIncrement = 0;
   } else {
     infoIncrement += 1;
   }
 }
 
+
 function startAutoPop(interval) {
-  if (interval !== undefined) {
+  if (interval != undefined) {
     interval = 10000;
   }
 
@@ -213,12 +238,12 @@ function init() {
 
   map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 
-    if ($.cookie('taken_quiz') == null) {
-      $('#meet-box').show();
-    }
+  if ($.cookie('taken_quiz') == null) {
+    $('#meet-box').show();
+  }
 
-    var $twitterPeopleLink = $('#tp');
-    var $toMeetLink = $('#tm');
+  var $twitterPeopleLink = $('#tp');
+  var $toMeetLink = $('#tm');
 
   getTwitterTweets();
 
@@ -228,18 +253,8 @@ function init() {
     $('#map_canvas').show();
     $('#questionnaire').hide();
   });
-
-  $('#meet-box, #meet-box a').click(function(e) {
-    e.preventDefault();
-    $.cookie('taken_quiz', 'true');
-    $('#meet-box').hide();
-    $('#map_canvas').hide();
-    $('#questionnaire').show();
-  });
-
-  //startAutoPop();
-  blinkTag($('#tap'), 600);
-  $('#meet-box').click();
+  
+   //startAutoPop(10000);
 }
 
 
@@ -251,7 +266,12 @@ function setTwitterPeople(results) {
       var screen_name = tweet.user.screen_name;
       twitterPeople[screen_name] = tweet.user;
 
-      $.extend(twitterPeople[screen_name], {'requestedInterests' : []});
+      $.extend(twitterPeople[screen_name], {
+        'requestedInterests' : [],
+        'text' : this.text,
+        'created_at' : timeAgo(this.created_at),
+        'geo' : this.geo
+      });
       if (twitterPeopleMetadata[screen_name] !== undefined) {
         $.extend(twitterPeople[screen_name], twitterPeopleMetadata[screen_name]);
       }
