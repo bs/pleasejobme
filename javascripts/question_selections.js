@@ -2,27 +2,16 @@
 
 var questionSelections = [
   [ 'Which of these sound like awesome things to work on?',
-    [ { id: 'scaling',          name: 'Scaling for millions of people', people: ['netik', 'bs', 'hoverbird'] },
-      { id: 'visualizing',      name: 'Visualizing a ton of data', people: ['k', 'Zhanna', 'stirman']},
-      { id: 'patterns',         name: 'Seeing patterns in a sea of data', people: ['kevinweil']},
-      { id: 'communication',    name: 'Changing the way we communicate', people: ['jennadawn', 'sean']},
-      { id: 'opensource',       name: 'Large-scale open source projects', people: ['hoverbird']},
-      { id: 'partners',         name: 'Making fast and sexy web applications', people: ['Zhanna', 'k', 'bs', 'hoverbird']},
-      { id: 'sexy_ux',          name: 'Designing innovative and intuitive UIs', people: ['trammell', 'Zhanna']},
-      { id: 'mobile',           name: 'Creating an international mobile platform', people: ['kevinthau']},
-      { id: 'mediacompanies',   name: 'Helping media companies tell stories with tweets', people: ['ChloeS', 'robinsloan']},
-      { id: 'journalism',       name: 'Transforming journalism', people: ['ChloeS', 'robinsloan']},
-      { id: 'usersupport',      name: 'Helping users who are having trouble', people: ['crystal', 'ed']},
-      { id: 'internalops',      name: 'Building tools to scale internal operations', people: ['pandemona', 'netik']},
-      { id: 'realtimepartners', name: 'Partnering with twitter to deliver real-time solutions', people: ['rsarver', 'jess', 'elizabeth']},
-      { id: 'predictingcatastrophe',  name: "Figuring out what's going to go horribly wrong before it does", people: ['delbius', 'netik']},
-      { id: 'spam',                   name: "Preventing spam and abuse from overtaking an open system", people: ['delbius']},
-      { id: 'internaltools',          name: 'Designing, building and deploying killer internal tools', people: ['bs', 'stirman']}
+    [ { id: 'sexy',             name: 'Making fast and sexy applications', people: ['Zhanna', 'trammell', 'k', 'bs', 'hoverbird', 'kevinthau']},
+      { id: 'realtimepartners', name: 'Partnering with Twitter', people: ['jess', 'elizabeth', 'rsarver']},
+      { id: 'scaling',          name: 'Scaling for millions of people', people: ['netik', 'bs', 'hoverbird', 'rsarver'] },
+      { id: 'communication',    name: 'Changing the way we communicate', people: ['jennadawn', 'sg', 'bs', 'k', 'rsarver']},
+      { id: 'journalism',       name: 'Transforming journalism', people: ['ChloeS', 'robinsloan', 'jennadawn', 'sg']},
+      { id: 'usersupport',      name: 'Supporting a global audience', people: ['crystal', 'ed', 'trammell']},
+      { id: 'internalops',      name: 'Building tools for Twitter & partners', people: ['pandemona', 'stirman', 'bs', 'rsarver', 'jess', 'netik']},
+      { id: 'patterns',         name: 'Seeing patterns in a sea of data', people: ['kevinweil', 'stirman', 'k', 'zhanna']},
+      { id: 'predictingcatastrophe',  name: "Predicting catastrophes", people: ['delbius', 'netik', 'bakari']}
     ]
-  ],
-
-  [ 'Where do you live?',
-    [ { id: 'doesntmatter', name: "It doesn't matter to us", people: [] } ]
   ]
 ];
 
@@ -58,7 +47,7 @@ var twitterPeopleMetadata = {
   },
 
   'elizabeth': {
-    role: "Corporate Development"
+    role: "Corporate Development",
     info: "Talk to me about @anywhere and how you can integrate Twitter. Looking to meet awesome companies in the Twittersphere. And, always on the hunt for awesome folks to join our Twitter team."
   },
 
@@ -78,7 +67,7 @@ var twitterPeopleMetadata = {
   },
 
   'Zhanna': {
-    role: "UX Design, Webclient"
+    role: "UX Design, Webclient",
     info: "Design; UX strategy at Twitter."
   },
 
@@ -93,7 +82,7 @@ var twitterPeopleMetadata = {
   },
 
   'delbius': {
-    role: "Trust and Safety"
+    role: "Trust and Safety",
     info: "Legalities, policy, abuse, and security. Expecting and planning for the worst. Also, the art of always checking your email."
   },
 
