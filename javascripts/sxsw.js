@@ -169,6 +169,7 @@ function getTwitterTweets() {
       plotTweets(twitterPeople);
       drawPeople(twitterPeople);
       initializeQuestionnaire();
+      // startAutoPop(10000);
     }
   });
 }
@@ -200,16 +201,23 @@ function autoPop() {
     return false;
   }
 
-  var m = markers[infoIncrement];
-  if (austinBounds.contains(m.getPosition())) {
-      google.maps.event.trigger(m, 'click');
+  var m = null;
+  while((infoIncrement <= markers.length) && m == null) {
+    var mTemp = markers[infoIncrement];
+    if (austinBounds.contains(mTemp.getPosition())) {
+        m = mTemp;
+        google.maps.event.trigger(m, 'click');
+    }
+    
+    infoIncrement += 1;
   }
 
   if (infoIncrement == m.length) {
     infoIncrement = 0;
-  } else {
-    infoIncrement += 1;
-  }
+  } 
+  //else {
+  //  infoIncrement += 1;
+  //}
 }
 
 function startAutoPop(interval) {
@@ -217,7 +225,7 @@ function startAutoPop(interval) {
     interval = 10000;
   }
 
-  autoInterval = window.setInterval(autoPop, autoPopInterval);
+  autoInterval = window.setInterval(autoPop, interval);
 }
 
 function stopAutoPop() {
@@ -298,7 +306,7 @@ function setTwitterPeople(results) {
       $.extend(twitterPeople[screen_name], {
         'requestedInterests' : [],
         'text' : this.text,
-        'created_at' : timeAgo(this.creat1ed_at),
+        'created_at' : timeAgo(this.created_at),
         'geo' : this.geo
       });
 
