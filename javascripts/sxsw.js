@@ -259,6 +259,9 @@ function init() {
     $map_canvas.hide();
     $questionnaire.show();
   });
+
+  var mapHeight = $(window).height() - ($('#top').height() + $('#navbar').height() + 40);  
+  $('#map_canvas').height(mapHeight + 'px');
 }
 
 // Questionnaire ------------------------------------------------------------------------------------------
