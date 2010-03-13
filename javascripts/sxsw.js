@@ -36,9 +36,12 @@ var tweetUserTemplate =
   '</td></tr></table></div>';
 
 var twitterPersonTemplate =
-  '<div id="person_{{screen_name}}" class="twitter-person" style="display: none;" data="requestedInterests : []">' +
-    '<img alt="" border="0" height="73" id="profile-image" src="{{profile_image_url}}" valign="middle" width="73">' +
-    '<span>{{info}}</span>' +
+  '<div id="person_{{screen_name}}" class="twitter-person" style="display: none;">' +
+    '<img class="profile-image" alt="{{screen_name}}" border="0" height="73" id="profile-image" src="{{profile_image_url}}" valign="middle" width="73">' +
+    '<a href="http://twitter.com/{{screen_name}}">{{name}}&nbsp;<small>@{{screen_name}}</small></a>' +
+    '<div class="jobtitle">{{jobtitle}}</div>' +
+    '<div class="meta"><span>Ask about:</span>{{info}}' +
+    '<div class="meta"><span>Last seen:</span>{{lastseen}}' +
   '</div>';
 
 var questionnaireSelectTemplate =
@@ -181,12 +184,12 @@ function autoPop() {
   }
 }
 
-function startAutoPop(interval) {
-  if (interval !== undefined) {
-    interval = 10000;
+function startAutoPop(autoPopInterval) {
+  if (autoPopInterval !== undefined) {
+    autoPopInterval = 10000;
   }
 
-  autoInterval = window.setInterval(autoPop, interval);
+  autoInterval = window.setInterval(autoPop, autoPopInterval);
 }
 
 function stopAutoPop() {
@@ -212,13 +215,12 @@ function init() {
   };
 
   map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+  if ($.cookie('taken_quiz') == null) {
+    $('#meet-box').show();
+  }
 
-    if ($.cookie('taken_quiz') == null) {
-      $('#meet-box').show();
-    }
-
-    var $twitterPeopleLink = $('#tp');
-    var $toMeetLink = $('#tm');
+  var $twitterPeopleLink = $('#tp');
+  var $toMeetLink = $('#tm');
 
   getTwitterTweets();
 
@@ -238,10 +240,9 @@ function init() {
   });
 
   // startAutoPop();
-  blinkTag($('#tap'), 600);
+  // blinkTag($('#tap'), 600);
   $('#meet-box').click();
 }
-
 
 // Questionnaire ------------------------------------------------------------------------------------------
 

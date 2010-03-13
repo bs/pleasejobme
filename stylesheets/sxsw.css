@@ -88,12 +88,12 @@ img {
   vertical-align: top;
 }
 
-.profile-pic {
+.tweetUserPopup .profile-pic {
   float: left;
   margin-right: 6px;
 }
 
-.full-name {
+.tweetUserPopup .full-name {
   color: #0073AB;
 }
 
@@ -154,12 +154,30 @@ img {
 }
 
 .twitter-person {
-  display: inline-block;
+  background: #F5F5F5;
+  color: #666;
+  font-size: 13px;
+  padding: 3px;
+  margin: 3px;
+  width: auto;
 }
 
-.twitter-person span {
-  display:none;
+.twitter-person .jobtitle {
+  color: #E2E2E2;
 }
+
+.twitter-person .profile-image {
+  display: inline;
+  float: left;
+  margin: 3px 11px 6px 3px;
+  height: 38px;
+  width: 38px;
+}
+
+.twitter-person .meta {
+  color: #999999;
+}
+
 
 #donebutton {
   -moz-border-radius: 0.4em;

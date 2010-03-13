@@ -1,12 +1,11 @@
 /*jslint white: false  */
-// stirman, Zhanna, kevinweil, sean, jenna, kevinthau, crystal, ed, ChloeS, pandemona, elizabeth, rsarver, stirman
 
 var questionSelections = [
   [ 'Which of these sound like awesome things to work on?',
     [ { id: 'scaling',          name: 'Scaling for millions of people', people: ['netik', 'bs', 'hoverbird'] },
       { id: 'visualizing',      name: 'Visualizing a ton of data', people: ['k', 'Zhanna', 'stirman']},
       { id: 'patterns',         name: 'Seeing patterns in a sea of data', people: ['kevinweil']},
-      { id: 'communication',    name: 'Changing the way we communicate', people: ['jenna', 'sean']},
+      { id: 'communication',    name: 'Changing the way we communicate', people: ['jennadawn', 'sean']},
       { id: 'opensource',       name: 'Large-scale open source projects', people: ['hoverbird']},
       { id: 'partners',         name: 'Making fast and sexy web applications', people: ['Zhanna', 'k', 'bs', 'hoverbird']},
       { id: 'sexy_ux',          name: 'Designing innovative and intuitive UIs', people: ['trammell', 'Zhanna']},
@@ -60,7 +59,7 @@ var twitterPeopleMetadata = {
     info: "New-ish Twitter communications lead. Let's talk media folks. And, looking to build a remarkable comms team. Likes chilaquiles and Shiner."
   },
 
-  'kweil': {
+  'kevinweil': {
     info: "Twitter analytics, data visualization, hadoop, engineering process, being multi-disciplinary at Twitter, company culture, hiring great people."
   },
 
@@ -96,7 +95,7 @@ var twitterPeopleMetadata = {
     info: 'Twitter.'
   },
 
-  'kthau': {
+  'kevinthau': {
     info: 'Twitter on mobile platforms.'
   },
 
