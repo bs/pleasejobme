@@ -183,7 +183,7 @@ function uniqueResults(results) {
       return element == screenName;
     }).length > 0)
 
-    if (!alreadyTweeted) {
+    if (!alreadyTweeted && tweet.geo != null) {
       screenNames.push(screenName);
       tweets.push(tweet);
     }
@@ -261,6 +261,9 @@ function init() {
     hideMap();
     showQuestionnaire();
   });
+
+  var mapHeight = $(window).height() - ($('#top').height() + $('#navbar').height() + 40);  
+  $('#map_canvas').height(mapHeight + 'px');
 }
 
 // Questionnaire ------------------------------------------------------------------------------------------
