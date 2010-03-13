@@ -16,6 +16,10 @@ var twitterPeople = {};
 var $twitterPeopleLink = $('#tp');
 var $toMeetLink = $('#tm');
 
+var $map_canvas = $('#map_canvas');
+var $questionnaire = $('form#questionnaire');
+var $questionnaireResults = $('#questionnaireResults');
+
 var employeeLocations = [];
 var othersLocations = [];
 var markers = [];
@@ -32,7 +36,7 @@ var tweetUserTemplate =
   '<div class="tweetUserPopup">' +
     '<table><tr><td class="image-td"><a href="http://twitter.com/{{screen_name}}" class="profile-pic"><img src="{{profile_image_url}}"></a></td><td>' +
     '<span class="full-name">{{name}}</span> <a class="screen-name" href="http://twitter.com/{{screen_name}}">@{{screen_name}}</a>' +
-    '<div class="tweet-text">{{latest-text}} <span class="created-at">{{created_at}}</span></div>' +
+    '<div class="tweet-text">{{text}} <span class="created-at">{{created_at}}</span></div>' +
   '</td></tr></table></div>';
 
 var twitterPersonTemplate =
@@ -219,24 +223,26 @@ function init() {
     $('#meet-box').show();
   }
 
-  var $twitterPeopleLink = $('#tp');
-  var $toMeetLink = $('#tm');
-
   getTwitterTweets();
 
   $twitterPeopleLink.click(function() {
     $toMeetLink.removeClass('current');
     $twitterPeopleLink.addClass('current');
-    $('#map_canvas').show();
-    $('#questionnaire').hide();
+    $map_canvas.show();
+    $questionnaire.hide();
+  });
+
+  $toMeetLink.click(function() {
+    $map_canvas.hide();
+    $questionnaire.show();
   });
 
   $('#meet-box, #meet-box a').click(function(e) {
     e.preventDefault();
     $.cookie('taken_quiz', 'true');
     $('#meet-box').hide();
-    $('#map_canvas').hide();
-    $('#questionnaire').show();
+    $map_canvas.hide();
+    $questionnaire.show();
   });
 
   // startAutoPop();
@@ -254,8 +260,9 @@ function setTwitterPeople(results) {
 
       $.extend(twitterPeople[screen_name], {
         'requestedInterests' : [],
-        'latest-text' : this.text,
-        'created_at' : this.created_at
+        'text' : this.text,
+        'created_at' : this.created_at,
+        'geo' : this.geo
       );
       if (twitterPeopleMetadata[screen_name] !== undefined) {
         $.extend(twitterPeople[screen_name], twitterPeopleMetadata[screen_name]);
@@ -333,8 +340,8 @@ function initializeQuestionnaire () {
   });
 
   $("#donebutton").click(function() {
-    $('form#questionnaire').hide();
-    $('#questionnaireResults').show();
+    $questionnaire.hide();
+    $questionnaireResults.show();
     $twitterPeopleLink.removeClass('selected');
     $toMeetLink.addClass('selected');
   });
