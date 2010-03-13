@@ -262,7 +262,7 @@ function init() {
     showQuestionnaire();
   });
 
-  var mapHeight = $(window).height() - ($('#top').height() + $('#navbar').height() + 40);  
+  var mapHeight = $(window).height() - ($('#top').height() + $('#navbar').height() + 40);
   $('#map_canvas').height(mapHeight + 'px');
 }
 
@@ -321,7 +321,7 @@ function addPerson(screen_name, skill) {
   } else {
     person.requestedInterests.push(skill);
     personElement.show();
-    $("#donebutton").show();
+    $("#donebutton").removeClass('disabled');
   }
 }
 

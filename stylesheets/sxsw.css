@@ -19,7 +19,7 @@ body {
 
 h2, h3 {
   font-weight: normal;
-  margin-left: 3px;
+  margin-left: 4px;
 }
 
 a {
@@ -112,8 +112,9 @@ img {
 #questionnaire li {
   border: 2px solid #dadada;
   color: #2377BB;
+  letter-spacing: -0.1px;
   display: inline-block;
-  font-size: 13px;
+  font-size: 12px;
   padding: 3px 8px;
   margin: 3px 7px;
 }
@@ -131,7 +132,7 @@ img {
 #questionnaire h3 {
   color: #666;
   font-size: 16px;
-  margin: 12px 0 6px;
+  margin: 12px 0 6px 8px;
 }
 
 .twitter-person {
@@ -182,4 +183,15 @@ img {
   padding: 6px 10px;
   text-align: center;
   margin: 8px 6px;
+}
+
+#donebutton.disabled {
+  border: none;
+  cursor:default;
+  color: #ffffff ;
+}
+
+#donebutton.disabled a {
+  cursor: default;
+  color: #dadada ;
 }
