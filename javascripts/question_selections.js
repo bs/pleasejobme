@@ -31,6 +31,11 @@ var twitterPeopleMetadata = {
     info : 'Product development process at Twitter; Frontend engineering and product manager opportunities; Good spots for BBQ in Austin; How to rock SxSW.'
   },
 
+  'jess': {
+     role: "Corporate Development",
+     info: "Integrating your business withTwitter."
+   },
+
   'jennadawn': {
     role: "Communications",
     info: "	Embodying the spirit and the voice of Twitter through marketing and comms. SxSW newbie!"
@@ -48,7 +53,7 @@ var twitterPeopleMetadata = {
 
   'elizabeth': {
     role: "Corporate Development",
-    info: "Talk to me about @anywhere and how you can integrate Twitter. Looking to meet awesome companies in the Twittersphere. And, always on the hunt for awesome folks to join our Twitter team."
+    info: "Talk to me about your business can integrate with Twitter. Looking to meet awesome companies in the Twittersphere. And, always on the hunt for awesome folks to join our Twitter team."
   },
 
   'SG': {

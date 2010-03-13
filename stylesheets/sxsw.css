@@ -133,14 +133,12 @@ img {
 .twitter-person {
   background: #F5F5F5;
   color: #666;
+  min-height: 55px;
+  line-height: 1.3em;
   font-size: 13px;
-  padding: 3px;
-  margin: 3px;
+  padding: 6px;
+  margin: 4px;
   width: auto;
-}
-
-.twitter-person .role {
-  color: #E2E2E2;
 }
 
 .twitter-person .profile-image {
@@ -149,6 +147,16 @@ img {
   margin: 3px 11px 6px 3px;
   height: 38px;
   width: 38px;
+}
+
+.twitter-person .role {
+  color: #cccccc;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.twitter-person .person-link {
+  font-size: 18px;
 }
 
 .twitter-person .meta {
@@ -163,7 +171,7 @@ img {
 #donebutton {
   -moz-border-radius: 0.4em;
   -webkit-border-radius: 0.4em;
-  background: #dadada;
+  background: #efefef;
   border: 1px solid gray;
   cursor:pointer;
   width: auto;
@@ -171,8 +179,3 @@ img {
   text-align: center;
   margin: 8px 6px;
 }
-
-#donebutton:active {
-  background: #999999;
-}
-

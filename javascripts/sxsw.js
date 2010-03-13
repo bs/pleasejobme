@@ -42,9 +42,9 @@ var tweetUserTemplate =
 var twitterPersonTemplate =
   '<div id="person_{{screen_name}}" class="twitter-person" style="display: none;">' +
     '<img class="profile-image" alt="{{screen_name}}" border="0" height="73" id="profile-image" src="{{profile_image_url}}" valign="middle" width="73">' +
-    '<a href="http://twitter.com/{{screen_name}}">{{name}}&nbsp;<small>@{{screen_name}}</small></a>' +
+    '<a class="person-link" href="http://twitter.com/{{screen_name}}">{{name}}&nbsp;<small>@{{screen_name}}</small></a>' +
     '<div class="role">{{role}}</div>' +
-    '<div class="meta"><span>Ask about:</span>{{info}}' +
+    '{{#info}}<div class="meta"><span>Ask about:</span>{{info}}{{/info}}' +
     '{{#geo-name}}<div class="meta"><span>Last seen:</span>{{geo-name}}{{/geo-name}}' +
   '</div>';
 
