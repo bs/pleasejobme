@@ -16,6 +16,10 @@ var twitterPeople = {};
 var $twitterPeopleLink = $('#tp');
 var $toMeetLink = $('#tm');
 
+var $map_canvas = $('#map_canvas');
+var $questionnaire = $('form#questionnaire');
+var $questionnaireResults = $('#questionnaireResults');
+
 var employeeLocations = [];
 var othersLocations = [];
 var markers = [];
@@ -36,9 +40,12 @@ var tweetUserTemplate =
   '</td></tr></table></div>';
 
 var twitterPersonTemplate =
-  '<div id="person_{{screen_name}}" class="twitter-person" style="display: none;" data="requestedInterests : []">' +
-    '<img alt="" border="0" height="73" id="profile-image" src="{{profile_image_url}}" valign="middle" width="73">' +
-    '<span>{{info}}</span>' +
+  '<div id="person_{{screen_name}}" class="twitter-person" style="display: none;">' +
+    '<img class="profile-image" alt="{{screen_name}}" border="0" height="73" id="profile-image" src="{{profile_image_url}}" valign="middle" width="73">' +
+    '<a href="http://twitter.com/{{screen_name}}">{{name}}&nbsp;<small>@{{screen_name}}</small></a>' +
+    '<div class="role">{{role}}</div>' +
+    '<div class="meta"><span>Ask about:</span>{{info}}' +
+    '<div class="meta"><span>Last seen:</span>{{lastseen}}' +
   '</div>';
 
 var questionnaireSelectTemplate =
@@ -205,13 +212,12 @@ function autoPop() {
   }
 }
 
-
 function startAutoPop(interval) {
   if (interval != undefined) {
     interval = 10000;
   }
 
-  autoInterval = window.setInterval(autoPop, interval);
+  autoInterval = window.setInterval(autoPop, autoPopInterval);
 }
 
 function stopAutoPop() {
@@ -237,11 +243,6 @@ function init() {
   };
 
   map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-
-  if ($.cookie('taken_quiz') == null) {
-    $('#meet-box').show();
-  }
-
   var $twitterPeopleLink = $('#tp');
   var $toMeetLink = $('#tm');
 
@@ -250,20 +251,22 @@ function init() {
   $twitterPeopleLink.click(function() {
     $toMeetLink.removeClass('current');
     $twitterPeopleLink.addClass('current');
-    $('#map_canvas').show();
-    $('#questionnaire').hide();
+    $map_canvas.show();
+    $questionnaire.hide();
   });
-  
-   //startAutoPop(10000);
-}
 
+  $toMeetLink.click(function() {
+    $map_canvas.hide();
+    $questionnaire.show();
+  });
+}
 
 // Questionnaire ------------------------------------------------------------------------------------------
 
 function setTwitterPeople(results) {
   $.each(results, function(index, tweet) {
     if ((tweet.user !== undefined) && (twitterPeople[tweet.user.screen_name] === undefined)) {
-      var screen_name = tweet.user.screen_name;
+      var screen_name = tweet.user.screen_name.toLowerCase();
       twitterPeople[screen_name] = tweet.user;
 
       $.extend(twitterPeople[screen_name], {
@@ -272,6 +275,7 @@ function setTwitterPeople(results) {
         'created_at' : timeAgo(this.created_at),
         'geo' : this.geo
       });
+
       if (twitterPeopleMetadata[screen_name] !== undefined) {
         $.extend(twitterPeople[screen_name], twitterPeopleMetadata[screen_name]);
       }
@@ -287,6 +291,7 @@ function addPerson(screen_name, skill) {
   } else {
     person.requestedInterests.push(skill);
     personElement.show();
+    $("#donebutton").show();
   }
 }
 
@@ -327,7 +332,7 @@ function elementSelected(listElement) {
 function drawPeople(people) {
   $.each(people, function(screenName, person) {
     var personElement = $(Mustache.to_html(twitterPersonTemplate, person));
-    $('body').append(personElement);
+    $('#questionnaireResults').append(personElement);
   });
 }
 
@@ -344,5 +349,12 @@ function initializeQuestionnaire () {
       });
       formSelections.append(listElement);
     });
+  });
+
+  $("#donebutton").click(function() {
+    $questionnaire.hide();
+    $questionnaireResults.show();
+    $twitterPeopleLink.removeClass('selected');
+    $toMeetLink.addClass('selected');
   });
 }

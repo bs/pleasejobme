@@ -19,6 +19,7 @@ body {
 
 h2, h3 {
   font-weight: normal;
+  margin-left: 3px;
 }
 
 a {
@@ -64,12 +65,12 @@ img {
   vertical-align: top;
 }
 
-.profile-pic {
+.tweetUserPopup .profile-pic {
   float: left;
   margin-right: 6px;
 }
 
-.full-name {
+.tweetUserPopup .full-name {
   color: #0073AB;
 }
 
@@ -130,9 +131,48 @@ img {
 }
 
 .twitter-person {
-  display: inline-block;
+  background: #F5F5F5;
+  color: #666;
+  font-size: 13px;
+  padding: 3px;
+  margin: 3px;
+  width: auto;
 }
 
-.twitter-person span {
-  display:none;
+.twitter-person .role {
+  color: #E2E2E2;
 }
+
+.twitter-person .profile-image {
+  display: inline;
+  float: left;
+  margin: 3px 11px 6px 3px;
+  height: 38px;
+  width: 38px;
+}
+
+.twitter-person .meta {
+  color: #999999;
+}
+
+.twitter-person .meta span {
+  color: #444;
+  margin-right: 5px;
+}
+
+#donebutton {
+  -moz-border-radius: 0.4em;
+  -webkit-border-radius: 0.4em;
+  background: #dadada;
+  border: 1px solid gray;
+  cursor:pointer;
+  width: auto;
+  padding: 6px 10px;
+  text-align: center;
+  margin: 8px 6px;
+}
+
+#donebutton:active {
+  background: #999999;
+}
+
