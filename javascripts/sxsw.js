@@ -323,7 +323,7 @@ function addPerson(screen_name, skill) {
   var personElement = $('#person_' + screen_name );
   var person = twitterPeople[screen_name];
   if (person === undefined) {
-    console.log("Couldn't find a twitterPerson with ID " + screen_name);
+    console.log(screen_name + " probably hasn't tweeted recently, and so isn't in twitterPeople.");
   } else {
     person.requestedInterests.push(skill);
     personElement.show();
@@ -331,15 +331,17 @@ function addPerson(screen_name, skill) {
   }
 }
 
-function removePerson(id, skill) {
-  var personElement = $('#person_' + id );
-  var filteredInterests = $.grep(twitterPeople[id].requestedInterests, function(value, index) {
-    return value != skill;
-  });
-  if (filteredInterests.length <= 0) {
-    personElement.hide();
+function removePerson(screen_name, skill) {
+  var personElement = $('#person_' + screen_name );
+  var person = twitterPeople[screen_name];
+
+  if (!person === undefined) {
+    var filteredInterests = $.grep(twitterPeople[screen_name].requestedInterests, function(value, index) {
+       return value != skill;
+     });
+     if (filteredInterests.length <= 0) { personElement.hide(); }
+     twitterPeople[screen_name].requestedInterests = filteredInterests;
   }
-  twitterPeople[id].requestedInterests = filteredInterests;
 }
 
 function elementUnselected(listElement) {
