@@ -23,6 +23,7 @@ var $map_canvas, $questionnaire
 var employeeLocations = [];
 var othersLocations = [];
 var markers = [];
+var markersInAustin = [];
 var infoWindows = [];
 var autoInterval = null;
 var infoIncrement = 0;
@@ -125,6 +126,10 @@ function plotTweets(results) {
       });
 
       markers.push(marker);
+      
+      if (austinBounds.contains(gLatLng)) {
+        markersInAustin.push(marker);
+      }
 
       google.maps.event.addListener(marker, 'click', function () {
         //stopAutoPop();
@@ -169,7 +174,7 @@ function getTwitterTweets() {
       plotTweets(twitterPeople);
       drawPeople(twitterPeople);
       initializeQuestionnaire();
-      // startAutoPop(10000);
+      //startAutoPop(10000);
     }
   });
 }
@@ -196,28 +201,21 @@ function uniqueResults(results) {
 function autoPop() {
   console.log('popping')
   clearInfoWindows();
-
-  if (markers[infoIncrement] === undefined) {
+  
+  var marker = markersInAustin[infoIncrement];
+  if (marker === undefined) {
     return false;
   }
 
-  var m = null;
-  while((infoIncrement <= markers.length) && m == null) {
-    var mTemp = markers[infoIncrement];
-    if (austinBounds.contains(mTemp.getPosition())) {
-        m = mTemp;
-        google.maps.event.trigger(m, 'click');
-    }
-    
+  google.maps.event.trigger(marker, 'click');
+
+  if (infoIncrement == markersInAustin.length) {
+    console.log('resetting')
+    infoIncrement = 0;
+  } else {
+    console.log('incrementing')
     infoIncrement += 1;
   }
-
-  if (infoIncrement == m.length) {
-    infoIncrement = 0;
-  } 
-  //else {
-  //  infoIncrement += 1;
-  //}
 }
 
 function startAutoPop(interval) {
