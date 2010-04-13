@@ -1,5 +1,5 @@
 /*jslint white: false, indent: 2, browser: true,  */
-/*global window, google, map, Mustache, $ */
+/*global window, Mustache, $ */
 
 /* Degrade gracefully if the browser doesn't support console.log */
 if (!window.console) {
@@ -18,19 +18,7 @@ var $toMeetLink = $('#tm');
 var $questionnaireResults = $('#questionnaireResults');
 var questionnaire_complete = false;
 
-var $map_canvas, $questionnaire
-
-var employeeLocations = [];
-var othersLocations = [];
-var markers = [];
-var infoWindows = [];
-var autoInterval = null;
-var infoIncrement = 0;
-
-// This is around Austin.
-var sw = new google.maps.LatLng(30.26434, -97.75116);
-var ne = new google.maps.LatLng(30.27102, -97.73530);
-var austinBounds = new google.maps.LatLngBounds(sw, ne);
+var $questionnaire
 
 var tweetUserTemplate =
   '<div class="tweetUserPopup">' +
@@ -109,67 +97,19 @@ function timeAgo(dateString) {
 
 function plotTweets(results) {
   $.each(results, function (screenName, person) {
-    if (this.geo !== null) {
-      var infowindow = new google.maps.InfoWindow({
-        content: Mustache.to_html(tweetUserTemplate, this)
-      });
-
-      infoWindows.push(infowindow);
-      var gLatLng = new google.maps.LatLng(this.geo.coordinates[0], this.geo.coordinates[1]);
-
-      var marker = new google.maps.Marker({
-        position: gLatLng,
-        title: this.screen_name,
-        map: map,
-        icon: 'images/ic_twgeo.png'
-      });
-
-      markers.push(marker);
-
-      google.maps.event.addListener(marker, 'click', function () {
-        //stopAutoPop();
-        clearInfoWindows();
-        infowindow.open(map, marker);
-        //startAutoPop();
-      });
-
-    }
-  });
-
-  // Center and Zoom the Map.
-  map.fitBounds(austinBounds);
-
-  // Set it around all given coords returned.
-  // var latLngBounds = new google.maps.LatLngBounds();
-  // for(var i=0; i < locations.length; i++ ) {
-  //   latLngBounds.extend(locations[i]);
-  // }
-}
-
-function clearMarkers() {
-  while(markers.length > 0) {
-    var marker = markers.pop();
-    marker.setMap(null);
-  }
-}
-
-function clearInfoWindows() {
- $.each(infoWindows, function() {
-    this.close();
   });
 }
 
 function getTwitterTweets() {
   $.ajax({
-    url: "http://api.twitter.com/1/twitter/lists/sxsw/statuses.json?per_page=200",
+    url: "http://api.twitter.com/1/twitter/lists/team/statuses.json?per_page=200",
     dataType: 'jsonp',
     success: function(results) {
       results = uniqueResults(results);
       setTwitterPeople(results);
-      plotTweets(twitterPeople);
+      // plotTweets(twitterPeople);
       drawPeople(twitterPeople);
       initializeQuestionnaire();
-      // startAutoPop(10000);
     }
   });
 }
@@ -193,96 +133,21 @@ function uniqueResults(results) {
   return tweets;
 }
 
-function autoPop() {
-  console.log('popping')
-  clearInfoWindows();
-
-  if (markers[infoIncrement] === undefined) {
-    return false;
-  }
-
-  var m = null;
-  while((infoIncrement <= markers.length) && m == null) {
-    var mTemp = markers[infoIncrement];
-    if (austinBounds.contains(mTemp.getPosition())) {
-        m = mTemp;
-        google.maps.event.trigger(m, 'click');
-    }
-    
-    infoIncrement += 1;
-  }
-
-  if (infoIncrement == m.length) {
-    infoIncrement = 0;
-  } 
-  //else {
-  //  infoIncrement += 1;
-  //}
-}
-
-function startAutoPop(interval) {
-  if (interval != undefined) {
-    interval = 10000;
-  }
-
-  autoInterval = window.setInterval(autoPop, interval);
-}
-
-function stopAutoPop() {
-  window.clearInterval(autoInterval);
-}
-
-function blinkTag(element, speed) {
-  window.setInterval(function() {
-    if (element.css('visibility') === 'visible') {
-      element.css('visibility', 'hidden');
-    } else {
-      element.css('visibility', 'visible');
-    }
-  }, speed);
-}
-
 function init() {
-  var latlng = new google.maps.LatLng(37, -122);
-  var myOptions = {
-    zoom: 8,
-    disableDefaultUI: true,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  };
-
-  map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-  var $twitterPeopleLink = $('#tp');
   var $toMeetLink = $('#tm');
 
   getTwitterTweets();
 
-  $twitterPeopleLink.click(function() {
-    $toMeetLink.removeClass('current');
-    $twitterPeopleLink.addClass('current');
-    hideQuestionnaire();
-    showMap();
-  });
-
   $toMeetLink.click(function() {
     $twitterPeopleLink.removeClass('current');
     $toMeetLink.addClass('current');
-    hideMap();
     showQuestionnaire();
   });
 
-  var mapHeight = $(window).height() - ($('#top').height() + $('#navbar').height() + 40);
-  $('#map_canvas').height(mapHeight + 'px');
+  $toMeetLink.trigger('click');
 }
 
 // Questionnaire ------------------------------------------------------------------------------------------
-
-function showMap() {
-  $('#map_canvas').show();
-}
-
-function hideMap() {
-  $('#map_canvas').hide();
-}
 
 function hideQuestionnaire() {
   $('#questionnaire').hide();

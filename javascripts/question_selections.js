@@ -1,16 +1,16 @@
 /*jslint white: false  */
 
 var questionSelections = [
-  [ 'Which of these sound like awesome things to work on?',
-    [ { id: 'sexy',             name: 'Making fast and sexy applications', people: ['Zhanna', 'trammell', 'k', 'bs', 'hoverbird', 'kevinthau']},
-      { id: 'realtimepartners', name: 'Partnering with Twitter', people: ['jess', 'elizabeth', 'rsarver']},
-      { id: 'scaling',          name: 'Scaling for millions of people', people: ['netik', 'bs', 'hoverbird', 'rsarver'] },
-      { id: 'communication',    name: 'Changing the way we communicate', people: ['jennadawn', 'sg', 'bs', 'k', 'rsarver']},
-      { id: 'journalism',       name: 'Transforming journalism', people: ['ChloeS', 'robinsloan', 'jennadawn', 'sg']},
-      { id: 'usersupport',      name: 'Supporting a global audience', people: ['crystal', 'ed', 'trammell']},
-      { id: 'internalops',      name: 'Building tools for Twitter & partners', people: ['pandemona', 'stirman', 'bs', 'rsarver', 'jess', 'netik']},
-      { id: 'patterns',         name: 'Seeing patterns in a sea of data', people: ['kevinweil', 'stirman', 'k', 'zhanna']},
-      { id: 'predictingcatastrophe',  name: "Predicting catastrophes", people: ['delbius', 'netik', 'bakari']}
+  [ 'I want to meet people from Twitter who...',
+    [ {  name: 'Making fast and sexy applications', people: ['Zhanna', 'trammell', 'k', 'bs', 'hoverbird', 'kevinthau']},
+      {  name: 'Partnering with Twitter', people: ['jess', 'elizabeth', 'rsarver']},
+      {  name: 'Scaling for millions of people', people: ['netik', 'bs', 'hoverbird', 'rsarver'] },
+      {  name: 'Changing the way we communicate', people: ['jennadawn', 'sg', 'bs', 'k', 'rsarver']},
+      {  name: 'Transforming journalism', people: ['ChloeS', 'robinsloan', 'jennadawn', 'sg']},
+      {  name: 'Supporting a global audience', people: ['crystal', 'ed', 'trammell']},
+      {  name: 'Building tools for Twitter & partners', people: ['pandemona', 'stirman', 'bs', 'rsarver', 'jess', 'netik']},
+      {  name: 'Seeing patterns in a sea of data', people: ['kevinweil', 'stirman', 'k', 'zhanna']},
+      {  name: "Predicting catastrophes", people: ['delbius', 'netik', 'bakari']}
     ]
   ]
 ];
@@ -33,7 +33,7 @@ var twitterPeopleMetadata = {
 
   'jess': {
      role: "Corporate Development",
-     info: "Integrating your business withTwitter."
+     info: "Integrating your business with Twitter."
    },
 
   'jennadawn': {
