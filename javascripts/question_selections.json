@@ -1,0 +1,22 @@
+var questionSelections = [
+  [ "I want to meet people from Twitter who...", [
+      { "id": "1",  "name": "builds the Platform.", "people": ["rsarver", "dougw", "raffi", "noradio", "mccv", "todd", "episod", "danadanger"]},
+      { "id": "2",  "name": "teaches the world how to use Twitter.", "people": ["joshelman", "trammell", "stop", "nancybroden", "mrtall", "janedotx", "rdy"]},
+      { "id": "3",  "name": "builds user interfaces.", "people": ["Zhanna", "k", "bs", "hoverbird" ]},
+      { "id": "4",  "name": "builds external relationships.", "people": ["elizabeth", "rsarver", "dougw", "jess", "bakari", "isaach"]},
+      { "id": "5",  "name": "scales Twitter's operational infrastructure.", "people": ["netik", "craigcalef", "liquidgecka", "tc", "drewdickson88", "Steve_C_D", "knorlen", "ElizaSwan", "eric", "boblord", "jfray", "lisaphilips"]},
+      { "id": "6",  "name": "changes the way we communicate.", "people": ["biz", "sg", "jennadawn"]},
+      { "id": "7",  "name": "helps media understand Twitter.", "people": ["ChloeS", "robinsloan"]},
+      { "id": "8",  "name": "support", "people": ["crystal"]},
+      { "id": "9",  "name": "codes tools.", "people": ["pandemona", "stirman", "juliesf"]},
+      { "id": "10", "name": "studies massive data sets.", "people": ["cayley", "kevinweil", "squarecog", "chuangl4", "damnitsamet", "johnxors"]},
+      { "id": "11", "name": "answer questions about Twitter policies and help me be a good Twitizen.", "people": ["macgill", "tonyw", "bakari", "jillyface", "jer", "tyip", "francesca"]},
+      { "id": "12", "name": "thinks about mobile.", "people": ["kevinthau", "theseancook", "bhaggs", "kmonkeyjam", "leland", "sandofsky"]},
+      { "id": "13", "name": "ties tweets to location.", "people": ["raffi", "colbay", "marius", "eladgil", "dhelder", "othman", "georgejlee", "tw"]},
+      { "id": "14", "name": "internationalizes Twitter.", "people": ["yukarim", "niw", "sean", "mzsanford", "chetanpatil", "schyule", "botolo86", "marcmaniez", "jinen", "yukarim", "niw", "sean", "mzsanford", "chetanpatil", "schyule", "botolo86", "marcmaniez", "jinen"]},
+      { "id": "15", "name": "designs at Twitter.", "people": ["stop", "vl", "zhanna", "mdo"]},
+      { "id": "16", "name": "fights spam and abuse.", "people": ["netik", "gingeranyhow", "delbius", "capnwiley", "mattsparrow", "bsuto", "truebethegreat", "boblord"]},
+      { "id": "17", "name": "working on Twitter monetization.", "people": ["dickc", "anamitra", "srinimusings", "francesca", "eddie", "ashishgoel", "tonyw", "utkarsh", "pandemona", "mattknox"]}
+    ]
+  ]
+];

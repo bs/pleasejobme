@@ -24,7 +24,7 @@ var tweetUserTemplate =
   '<div class="tweetUserPopup">' +
     '<table><tr><td class="image-td"><a href="http://twitter.com/{{screen_name}}" class="profile-pic"><img src="{{profile_image_url}}"></a></td><td>' +
     '<span class="full-name">{{name}}</span> <a class="screen-name" href="http://twitter.com/{{screen_name}}">@{{screen_name}}</a>' +
-    '<div class="tweet-text">{{text}} <span class="created-at">{{created_at}}</span></div>' +
+    '<div class="tweet-text">{{bio}}</div>' +
   '</td></tr></table></div>';
 
 var twitterPersonTemplate =
@@ -32,8 +32,8 @@ var twitterPersonTemplate =
     '<img class="profile-image" alt="{{screen_name}}" border="0" height="73" id="profile-image" src="{{profile_image_url}}" valign="middle" width="73">' +
     '<a class="person-link" href="http://twitter.com/{{screen_name}}">{{name}}&nbsp;<small>@{{screen_name}}</small></a>' +
     '<div class="role">{{role}}</div>' +
-    '{{#info}}<div class="meta"><span>Ask about:</span>{{info}}{{/info}}' +
-    '{{#geo-name}}<div class="meta"><span>Last seen:</span>{{geo-name}}{{/geo-name}}' +
+    '{{#askabout}}<div class="meta"><span>Ask about:</span>{{info}}{{/askabout}}' +
+    '{{#bio}}<div id="bio" class="meta">{{bio}}</div>{{/bio}}' +
   '</div>';
 
 var questionnaireSelectTemplate =
@@ -136,7 +136,12 @@ function uniqueResults(results) {
 function init() {
   var $toMeetLink = $('#tm');
 
-  getTwitterTweets();
+  results = tweeps;
+  setTwitterPeople(results);
+  // plotTweets(twitterPeople);
+  drawPeople(twitterPeople);
+  initializeQuestionnaire();
+  // getTwitterTweets();
 
   $toMeetLink.click(function() {
     $twitterPeopleLink.removeClass('current');
@@ -163,25 +168,20 @@ function showQuestionnaire() {
 };
 
 function setTwitterPeople(results) {
-  $.each(results, function(index, tweet) {
-    if ((tweet.user !== undefined) && (twitterPeople[tweet.user.screen_name] === undefined)) {
-      var screen_name = tweet.user.screen_name.toLowerCase();
-      twitterPeople[screen_name] = tweet.user;
+  $.each(results, function(index, user) {
+    if ((user !== undefined) && (twitterPeople[user.screen_name] === undefined)) {
+      var screen_name = user.screen_name.toLowerCase();
+      twitterPeople[screen_name] = user;
 
       $.extend(twitterPeople[screen_name], {
         'requestedInterests' : [],
         'text' : this.text,
         'created_at' : timeAgo(this.created_at),
-        'geo' : this.geo
       });
-
-      if (this.place) {
-        $.extend(twitterPeople[screen_name], {'geo-name' : this.place.name});
-      }
-
-      if (twitterPeopleMetadata[screen_name] !== undefined) {
-        $.extend(twitterPeople[screen_name], twitterPeopleMetadata[screen_name]);
-      }
+      //
+      // if (twitterPeopleMetadata[screen_name] !== undefined) {
+      //   $.extend(twitterPeople[screen_name], twitterPeopleMetadata[screen_name]);
+      // }
     }
   });
 }
