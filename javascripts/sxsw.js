@@ -190,7 +190,8 @@ function addPerson(screen_name, skill) {
   var personElement = $('#person_' + screen_name );
   var person = twitterPeople[screen_name];
   if (person === undefined) {
-    console.log(screen_name + " probably hasn't tweeted recently, and so isn't in twitterPeople.");
+    return '';
+    // console.log(screen_name + " probably hasn't tweeted recently, and so isn't in twitterPeople.");
   } else {
     person.requestedInterests.push(skill);
     personElement.show();
